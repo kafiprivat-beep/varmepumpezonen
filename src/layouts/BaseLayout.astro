@@ -1,0 +1,283 @@
+---
+import "../styles/global.css";
+import { categories } from "../data/advertisers";
+
+interface ArticleMeta {
+  datePublished?: string;
+  dateModified?: string;
+  author?: string;
+}
+interface Crumb {
+  name: string;
+  url: string;
+}
+interface Props {
+  /** Sidetitel UDEN brand-suffix; " | Livetoutdoor.dk" tilføjes automatisk. */
+  title: string;
+  description?: string;
+  /** OG-billede (absolut URL eller sti). Default = site-banner. */
+  image?: string;
+  /** Sæt for at udsende Article-schema (eller true for at bruge defaults). */
+  article?: ArticleMeta | boolean;
+  /** Overskriv auto-genererede brødkrummer. */
+  breadcrumbs?: Crumb[];
+}
+
+const BRAND = "Livetoutdoor.dk";
+const DEFAULT_DESC =
+  "Guides, anmeldelser og de bedste tilbud på friluftsudstyr — telte, soveposer, rygsække og meget mere.";
+
+const {
+  title,
+  description = DEFAULT_DESC,
+  image,
+  article,
+  breadcrumbs,
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://livetoutdoor.dk");
+
+// --- Titel: fjern evt. gammelt brand-suffix og standardisér til "… | Livetoutdoor.dk"
+const pageTitle = title
+  .replace(/\s*[—–|-]\s*livetoutdoor\.dk\s*$/i, "")
+  .trim();
+const fullTitle = /livetoutdoor\.dk/i.test(pageTitle)
+  ? pageTitle
+  : `${pageTitle} | ${BRAND}`;
+
+// --- Canonical + OG url
+const pathname = Astro.url.pathname;
+const canonical = new URL(pathname, site).href;
+// Socialt delebillede: rasterformat (PNG) er påkrævet — Facebook, LinkedIn,
+// X/Twitter, Slack m.fl. viser ikke SVG som og:image.
+const ogImage = new URL(image ?? "/og-image.png", site).href;
+const isDefaultOg = !image;
+const logoUrl = new URL("/favicon.svg", site).href;
+
+// --- Auto-brødkrummer ud fra sti (medmindre eksplicit angivet)
+function autoCrumbs(): Crumb[] {
+  const segs = pathname.split("/").filter(Boolean);
+  const out: Crumb[] = [{ name: "Forside", url: new URL("/", site).href }];
+  let acc = "";
+  segs.forEach((seg, i) => {
+    acc += `/${seg}`;
+    let name: string;
+    if (seg === "artikler") name = "Artikler";
+    else {
+      const cat = categories.find((c) => c.slug === seg);
+      name = cat ? cat.name : pageTitle;
+    }
+    out.push({ name, url: new URL(`${acc}/`, site).href });
+  });
+  return out;
+}
+const crumbs = breadcrumbs ?? autoCrumbs();
+
+// --- Schema: BreadcrumbList (når der er mere end blot Forside)
+const breadcrumbSchema =
+  crumbs.length > 1
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: crumbs.map((c, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: c.name,
+          item: c.url,
+        })),
+      }
+    : null;
+
+// --- Schema: Article (eksplicit prop ELLER auto-detekteret artikelside)
+const isArticlePage =
+  !!article ||
+  (/^\/artikler\/.+/.test(pathname) && pathname !== "/artikler/");
+const meta: ArticleMeta =
+  article && typeof article === "object" ? article : {};
+const datePublished = meta.datePublished ?? "2026-06-30";
+const articleSchema = isArticlePage
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: pageTitle,
+      description,
+      image: ogImage,
+      datePublished,
+      dateModified: meta.dateModified ?? datePublished,
+      author: { "@type": "Organization", name: meta.author ?? BRAND },
+      publisher: {
+        "@type": "Organization",
+        name: BRAND,
+        logo: { "@type": "ImageObject", url: logoUrl },
+      },
+      mainEntityOfPage: canonical,
+    }
+  : null;
+
+const ogType = isArticlePage ? "article" : "website";
+
+// --- Schema: WebSite/Organization på forsiden (så alle sider har structured data)
+const isHome = pathname === "/";
+const websiteSchema = isHome
+  ? {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: BRAND,
+      url: site.href,
+      inLanguage: "da-DK",
+      description,
+      publisher: {
+        "@type": "Organization",
+        name: BRAND,
+        url: site.href,
+        logo: { "@type": "ImageObject", url: logoUrl },
+      },
+    }
+  : null;
+
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="x/GdlDzGtdxCm/SSjSFaJQ" async></script>
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-LJ2BRKM2ML"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-LJ2BRKM2ML');
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="ahrefs-site-verification"
+      content="619eda5c24debe00cdc4bd4786df4eac538c003d6640f526b91eabab818a7700"
+    />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#1e3a2a" />
+
+    <!-- Fonts: Fraunces (display) + Inter (brødtekst) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content={BRAND} />
+    <meta property="og:locale" content="da_DK" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${BRAND} – friluftsudstyr, guides, test og tilbud`} />
+    {
+      isDefaultOg && (
+        <>
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+        </>
+      )
+    }
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={`${BRAND} – friluftsudstyr, guides, test og tilbud`} />
+
+    {
+      breadcrumbSchema && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(breadcrumbSchema)}
+        />
+      )
+    }
+    {
+      articleSchema && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(articleSchema)}
+        />
+      )
+    }
+    {
+      websiteSchema && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(websiteSchema)}
+        />
+      )
+    }
+    <slot name="head" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="/" class="logo">livet<span>outdoor</span>.dk</a>
+        <nav class="main-nav" aria-label="Hovedmenu">
+          {
+            categories.slice(0, 5).map((c) => (
+              <a href={`/${c.slug}/`}>{c.name}</a>
+            ))
+          }
+          <a href="/artikler/">Artikler</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div>
+          <h4>livetoutdoor.dk</h4>
+          <p style="max-width: 320px; margin:0;">
+            Vi hjælper dig med at finde det rette friluftsudstyr gennem
+            guides, anmeldelser og sammenligninger.
+          </p>
+        </div>
+        <div>
+          <h4>Kategorier</h4>
+          <ul>
+            {
+              categories.map((c) => (
+                <li>
+                  <a href={`/${c.slug}/`}>{c.name}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h4>Mere</h4>
+          <ul>
+            <li><a href="/artikler/">Artikler & guides</a></li>
+          </ul>
+        </div>
+        <p class="copyright">
+          © {year} livetoutdoor.dk · Siden indeholder affiliate-links. Vi
+          kan modtage en kommission, hvis du køber via vores links — det
+          koster dig ikke ekstra.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

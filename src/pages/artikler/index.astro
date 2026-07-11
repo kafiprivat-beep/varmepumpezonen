@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getArticlesSorted } from "../../data/articles";
+import { seoArticles } from "../../data/seoArticles";
+
+const articles = getArticlesSorted();
+const guides = [...seoArticles].sort((a, b) => a.title.localeCompare(b.title, "da"));
+---
+
+<BaseLayout
+  title="Friluftsliv guides & artikler – tips, test og råd"
+  description="Friluftsliv guides og artikler: tips til vandring, camping og udstyr samt test og anmeldelser. Bliv klogere før din næste tur — 100 guides samlet ét sted."
+>
+  <section class="section">
+    <div class="container">
+      <p class="breadcrumb">
+        <a href="/">Forside</a> ›
+        <span>Artikler</span>
+      </p>
+
+      <h1 class="section-title">Friluftsliv guides & artikler</h1>
+      <p class="section-subtitle">
+        Bliv klogere på udstyr og teknik til friluftslivet, før du tager
+        afsted.
+      </p>
+
+      <div class="grid grid-cards">
+        {
+          articles.map((art) => (
+            <a href={`/artikler/${art.slug}/`} class="card article-card">
+              <h3>{art.title}</h3>
+              <p class="meta">
+                {art.date} · {art.author}
+              </p>
+              <p>{art.excerpt}</p>
+            </a>
+          ))
+        }
+      </div>
+
+      {
+        guides.length > 0 && (
+          <>
+            <h2 class="section-title" style="margin-top:3rem;">
+              Alle guides
+            </h2>
+            <div class="grid grid-cards">
+              {guides.map((art) => (
+                <a href={`/artikler/${art.slug}/`} class="card article-card">
+                  <h3>{art.title}</h3>
+                  <p>{art.description}</p>
+                </a>
+              ))}
+            </div>
+          </>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

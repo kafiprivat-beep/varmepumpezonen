@@ -1,0 +1,294 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AdvertiserCard from "../components/AdvertiserCard.astro";
+import { categories, getFeaturedAdvertisers } from "../data/advertisers";
+import { getCategoryContent } from "../data/categoryContent";
+import { getArticlesSorted } from "../data/articles";
+import {
+  hero,
+  trustBadges,
+  topPicks,
+  guideSteps,
+  stats,
+  homeFaq,
+} from "../data/homepage";
+import { lucide, starsSvg } from "../lib/icons";
+
+const featured = getFeaturedAdvertisers();
+const latestArticles = getArticlesSorted().slice(0, 3);
+
+// FAQPage-schema af forsidens FAQ.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: homeFaq.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Friluftsudstyr, guides og test til outdoorlivet"
+  description="Friluftsudstyr, guides og test samlet ét sted. Sammenlign telte, soveposer, rygsække, fodtøj og mere — find det bedste outdoorudstyr til din næste tur."
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(faqSchema)}
+  />
+  <!-- Slank trust-bar -->
+  <div class="trust-bar">
+    <div class="container">
+      {
+        trustBadges.map((b) => (
+          <span class="trust-bar__item">
+            <Fragment set:html={lucide(b.icon, 18)} />
+            {b.label}
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Hero i vejleder-tone med rigtigt foto -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__content">
+        <span class="eyebrow">{hero.eyebrow}</span>
+        <h1>{hero.title}</h1>
+        <p class="hero__lead">{hero.lead}</p>
+        <div class="hero__cta">
+          <a href={hero.primaryCta.href} class="btn btn-accent btn-lg">
+            {hero.primaryCta.label}
+            <Fragment set:html={lucide("arrow-right", 20)} />
+          </a>
+          <a href={hero.secondaryCta.href} class="btn btn-outline btn-lg">
+            {hero.secondaryCta.label}
+          </a>
+        </div>
+      </div>
+      <div class="hero__media">
+        <img
+          src={hero.image}
+          alt={hero.imageAlt}
+          width="800"
+          height="640"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="hero__badge">
+          <span class="stars">
+            <span class="stars__icons" set:html={starsSvg(5)} />
+          </span>
+          <div>
+            <strong>{hero.badge.title}</strong>
+            <span>{hero.badge.subtitle}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop efter behov -->
+  <section class="section" id="shop">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Shop efter behov</h2>
+        <p class="section-subtitle">
+          Otte kategorier dækker alt det grej, du har brug for på tur — vælg
+          det, du er i gang med.
+        </p>
+      </div>
+      <div class="grid grid-categories">
+        {
+          categories.map((c) => (
+            <a href={`/${c.slug}/`} class="card category-card">
+              <div class="cat-photo">
+                <img
+                  src={`/images/categories/${c.slug}.webp`}
+                  alt={`${c.name} – friluftsudstyr`}
+                  width="800"
+                  height="500"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="cat-body">
+                <h3>{c.name}</h3>
+                <p class="cat-desc">
+                  {getCategoryContent(c.slug)?.cardBlurb ?? c.description}
+                </p>
+                <span class="cat-link">
+                  Se produkter
+                  <Fragment set:html={lucide("arrow-right", 16)} />
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Bedst i test -->
+  <section class="section section-secondary">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Bedst i test</h2>
+        <p class="section-subtitle">
+          Vores redaktions favoritter i hver kategori — og hvorfor de er værd at
+          kigge på.
+        </p>
+      </div>
+      <div class="grid grid-picks">
+        {
+          topPicks.map((p) => (
+            <article class="pick-card">
+              <div class="pick-card__media">
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  width="600"
+                  height="450"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="pick-card__tag">{p.tag}</span>
+              </div>
+              <div class="pick-card__body">
+                <span class="stars">
+                  <span class="stars__icons" set:html={starsSvg(p.rating)} />
+                  <span class="stars__value">{p.rating.toFixed(1)}</span>
+                </span>
+                <h3>{p.title}</h3>
+                <p class="pick-card__blurb">{p.blurb}</p>
+                <div class="pick-card__foot">
+                  <span class="pick-card__price">
+                    {p.priceFrom}
+                    <span>hos danske butikker</span>
+                  </span>
+                </div>
+                <a href={`/${p.categorySlug}/`} class="btn btn-primary">
+                  {p.cta}
+                  <Fragment set:html={lucide("arrow-right", 18)} />
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Kort købsguide -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Sådan vælger du grej, der holder</h2>
+        <p class="section-subtitle">
+          Tre trin, der gør valget nemmere — uanset om det er din første tur
+          eller din femtiende.
+        </p>
+      </div>
+      <div class="steps">
+        {
+          guideSteps.map((s, i) => (
+            <div class="step">
+              <span class="step__num">{i + 1}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p style="margin-top:1.75rem;">
+        <a href="/artikler/" class="btn btn-outline">
+          Se alle guides
+          <Fragment set:html={lucide("arrow-right", 18)} />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Anbefalede butikker -->
+  <section class="section section-secondary">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Anbefalede butikker</h2>
+        <p class="section-subtitle">
+          Vores foretrukne danske forhandlere af friluftsudstyr.
+        </p>
+      </div>
+      <div class="grid grid-cards">
+        {featured.map((a) => <AdvertiserCard advertiser={a} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust-tal -->
+  <section class="section-tight">
+    <div class="container">
+      <div class="stats">
+        {
+          stats.map((s) => (
+            <div class="stat">
+              <div class="stat__value">{s.value}</div>
+              <p class="stat__label">{s.label}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Seneste guides -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Seneste guides</h2>
+        <p class="section-subtitle">Bliv klogere, før du pakker rygsækken.</p>
+      </div>
+      <div class="grid grid-cards">
+        {
+          latestArticles.map((art) => (
+            <a href={`/artikler/${art.slug}/`} class="card article-card">
+              <p class="meta">
+                {art.date} · {art.author}
+              </p>
+              <h3>{art.title}</h3>
+              <p>{art.excerpt}</p>
+              <span class="cat-link">
+                Læs guiden
+                <Fragment set:html={lucide("arrow-right", 16)} />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-secondary">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Ofte stillede spørgsmål</h2>
+        <p class="section-subtitle">
+          Det du bør vide om, hvordan livetoutdoor.dk fungerer.
+        </p>
+      </div>
+      <div class="faq-list">
+        {
+          homeFaq.map((f) => (
+            <details class="faq-item">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

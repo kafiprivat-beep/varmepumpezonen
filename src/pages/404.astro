@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { categories } from "../data/advertisers";
+---
+
+<BaseLayout
+  title="Siden blev ikke fundet (404)"
+  description="Vi kunne ikke finde den side, du ledte efter. Gå tilbage til forsiden eller find friluftsudstyr, guides og test i en af vores kategorier."
+>
+  <meta slot="head" name="robots" content="noindex, follow" />
+  <section class="section">
+    <div class="container notfound">
+      <span class="eyebrow">Fejl 404</span>
+      <h1>Siden blev ikke fundet</h1>
+      <p class="notfound__lead">
+        Siden er måske flyttet eller findes ikke længere. Kom videre herfra:
+      </p>
+      <p class="notfound__cta">
+        <a href="/" class="btn btn-accent btn-lg">Gå til forsiden</a>
+        <a href="/artikler/" class="btn btn-outline btn-lg">Se alle guides</a>
+      </p>
+
+      <h2>Udforsk kategorierne</h2>
+      <ul class="notfound__cats">
+        {
+          categories.map((c) => (
+            <li>
+              <a href={`/${c.slug}/`}>{c.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    max-width: 720px;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+  .notfound__lead {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin: 0.5rem 0 1.75rem;
+  }
+  .notfound__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .notfound h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+  .notfound__cats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.25rem;
+  }
+  .notfound__cats a {
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+</style>

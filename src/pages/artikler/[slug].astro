@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { articles, type Article } from "../../data/articles";
+
+export function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<BaseLayout
+  title={article.title}
+  description={article.excerpt}
+  article={{ datePublished: article.date, author: article.author }}
+>
+  <article class="section">
+    <div class="container prose">
+      <p class="breadcrumb">
+        <a href="/">Forside</a> ›
+        <a href="/artikler/">Artikler</a> ›
+        <span>{article.title}</span>
+      </p>
+
+      <h1>{article.title}</h1>
+      <p class="meta" style="color: var(--color-text-muted);">
+        {article.date} · {article.author}
+      </p>
+
+      <Fragment set:html={article.body} />
+
+      <div class="disclosure">
+        Denne artikel kan indeholde affiliate-links. Køber du via dem, kan vi
+        modtage en kommission — det koster dig ikke ekstra og hjælper os med
+        at holde indholdet gratis.
+      </div>
+
+      <p><a href="/artikler/" class="btn btn-outline">← Alle artikler</a></p>
+    </div>
+  </article>
+</BaseLayout>
