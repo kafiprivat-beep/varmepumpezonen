@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { categories } from "../data/advertisers";
+import { SITE, NAV } from "../data/site";
 
 interface ArticleMeta {
   datePublished?: string;
@@ -12,7 +12,7 @@ interface Crumb {
   url: string;
 }
 interface Props {
-  /** Sidetitel UDEN brand-suffix; " | Livetoutdoor.dk" tilføjes automatisk. */
+  /** Sidetitel UDEN brand-suffix; " | Varmepumpezonen" tilføjes automatisk. */
   title: string;
   description?: string;
   /** OG-billede (absolut URL eller sti). Default = site-banner. */
@@ -23,9 +23,8 @@ interface Props {
   breadcrumbs?: Crumb[];
 }
 
-const BRAND = "Livetoutdoor.dk";
-const DEFAULT_DESC =
-  "Guides, anmeldelser og de bedste tilbud på friluftsudstyr — telte, soveposer, rygsække og meget mere.";
+const BRAND = SITE.brand;
+const DEFAULT_DESC = SITE.description;
 
 const {
   title,
@@ -35,21 +34,20 @@ const {
   breadcrumbs,
 } = Astro.props;
 
-const site = Astro.site ?? new URL("https://livetoutdoor.dk");
+const site = Astro.site ?? new URL(SITE.url);
 
-// --- Titel: fjern evt. gammelt brand-suffix og standardisér til "… | Livetoutdoor.dk"
+// --- Titel: fjern evt. brand-suffix og standardisér til "… | Varmepumpezonen"
 const pageTitle = title
-  .replace(/\s*[—–|-]\s*livetoutdoor\.dk\s*$/i, "")
+  .replace(/\s*[—–|-]\s*varmepumpezonen(\.dk)?\s*$/i, "")
   .trim();
-const fullTitle = /livetoutdoor\.dk/i.test(pageTitle)
+const fullTitle = /varmepumpezonen/i.test(pageTitle)
   ? pageTitle
   : `${pageTitle} | ${BRAND}`;
 
 // --- Canonical + OG url
 const pathname = Astro.url.pathname;
 const canonical = new URL(pathname, site).href;
-// Socialt delebillede: rasterformat (PNG) er påkrævet — Facebook, LinkedIn,
-// X/Twitter, Slack m.fl. viser ikke SVG som og:image.
+// Socialt delebillede: rasterformat (PNG) er påkrævet af Facebook, LinkedIn m.fl.
 const ogImage = new URL(image ?? "/og-image.png", site).href;
 const isDefaultOg = !image;
 const logoUrl = new URL("/favicon.svg", site).href;
@@ -59,14 +57,9 @@ function autoCrumbs(): Crumb[] {
   const segs = pathname.split("/").filter(Boolean);
   const out: Crumb[] = [{ name: "Forside", url: new URL("/", site).href }];
   let acc = "";
-  segs.forEach((seg, i) => {
+  segs.forEach((seg) => {
     acc += `/${seg}`;
-    let name: string;
-    if (seg === "artikler") name = "Artikler";
-    else {
-      const cat = categories.find((c) => c.slug === seg);
-      name = cat ? cat.name : pageTitle;
-    }
+    const name = seg === "artikler" ? "Artikler" : pageTitle;
     out.push({ name, url: new URL(`${acc}/`, site).href });
   });
   return out;
@@ -91,10 +84,11 @@ const breadcrumbSchema =
 // --- Schema: Article (eksplicit prop ELLER auto-detekteret artikelside)
 const isArticlePage =
   !!article ||
-  (/^\/artikler\/.+/.test(pathname) && pathname !== "/artikler/");
+  (/^\/artikler\/.+/.test(pathname) && pathname !== "/artikler/") ||
+  pathname === "/varmepumpe-guide/";
 const meta: ArticleMeta =
   article && typeof article === "object" ? article : {};
-const datePublished = meta.datePublished ?? "2026-06-30";
+const datePublished = meta.datePublished ?? "2026-07-11";
 const articleSchema = isArticlePage
   ? {
       "@context": "https://schema.org",
@@ -116,7 +110,7 @@ const articleSchema = isArticlePage
 
 const ogType = isArticlePage ? "article" : "website";
 
-// --- Schema: WebSite/Organization på forsiden (så alle sider har structured data)
+// --- Schema: WebSite/Organization på forsiden
 const isHome = pathname === "/";
 const websiteSchema = isHome
   ? {
@@ -142,29 +136,16 @@ const year = new Date().getFullYear();
 <html lang="da">
   <head>
     <meta charset="utf-8" />
-    <script src="https://analytics.ahrefs.com/analytics.js" data-key="x/GdlDzGtdxCm/SSjSFaJQ" async></script>
-    <!-- Google tag (gtag.js) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-LJ2BRKM2ML"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-LJ2BRKM2ML');
-    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <meta
-      name="ahrefs-site-verification"
-      content="619eda5c24debe00cdc4bd4786df4eac538c003d6640f526b91eabab818a7700"
-    />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#1e3a2a" />
+    <meta name="theme-color" content="#10502f" />
 
     <!-- Fonts: Fraunces (display) + Inter (brødtekst) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -182,7 +163,10 @@ const year = new Date().getFullYear();
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content={`${BRAND} – friluftsudstyr, guides, test og tilbud`} />
+    <meta
+      property="og:image:alt"
+      content={`${BRAND} – uvildig guide til varmepumper, priser og tilskud`}
+    />
     {
       isDefaultOg && (
         <>
@@ -198,7 +182,6 @@ const year = new Date().getFullYear();
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={`${BRAND} – friluftsudstyr, guides, test og tilbud`} />
 
     {
       breadcrumbSchema && (
@@ -229,14 +212,9 @@ const year = new Date().getFullYear();
   <body>
     <header class="site-header">
       <div class="container">
-        <a href="/" class="logo">livet<span>outdoor</span>.dk</a>
+        <a href="/" class="logo">varmepumpe<span>zonen</span></a>
         <nav class="main-nav" aria-label="Hovedmenu">
-          {
-            categories.slice(0, 5).map((c) => (
-              <a href={`/${c.slug}/`}>{c.name}</a>
-            ))
-          }
-          <a href="/artikler/">Artikler</a>
+          {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
         </nav>
       </div>
     </header>
@@ -248,34 +226,41 @@ const year = new Date().getFullYear();
     <footer class="site-footer">
       <div class="container">
         <div>
-          <h4>livetoutdoor.dk</h4>
-          <p style="max-width: 320px; margin:0;">
-            Vi hjælper dig med at finde det rette friluftsudstyr gennem
-            guides, anmeldelser og sammenligninger.
+          <h4>{SITE.brand}.dk</h4>
+          <p style="max-width: 340px; margin:0;">
+            Uvildig guide til varmepumper for danske boligejere — typer, priser,
+            tilskud og besparelser samlet ét sted, så du kan vælge rigtigt.
           </p>
         </div>
         <div>
-          <h4>Kategorier</h4>
+          <h4>Populære emner</h4>
           <ul>
-            {
-              categories.map((c) => (
-                <li>
-                  <a href={`/${c.slug}/`}>{c.name}</a>
-                </li>
-              ))
-            }
+            <li><a href="/varmepumpe-guide/">Varmepumpe-guide 2026</a></li>
+            <li>
+              <a href="/artikler/varmepumpe-pris-montering-2026/">Priser inkl. montering</a>
+            </li>
+            <li>
+              <a href="/artikler/varmepumpe-tilskud-fradrag-2026/">Tilskud & fradrag 2026</a>
+            </li>
+            <li>
+              <a href="/artikler/bedste-varmepumpe-maerker/">Bedste mærker</a>
+            </li>
           </ul>
         </div>
         <div>
           <h4>Mere</h4>
           <ul>
-            <li><a href="/artikler/">Artikler & guides</a></li>
+            <li><a href="/artikler/">Alle artikler</a></li>
+            <li>
+              <a href="/artikler/faa-3-tilbud-tjekliste/">Få 3 gratis tilbud</a>
+            </li>
           </ul>
         </div>
         <p class="copyright">
-          © {year} livetoutdoor.dk · Siden indeholder affiliate-links. Vi
-          kan modtage en kommission, hvis du køber via vores links — det
-          koster dig ikke ekstra.
+          © {year} {SITE.domain} · Vi formidler kontakt til varmepumpe-installatører
+          og kan modtage et honorar, når du indhenter tilbud via siden — det
+          koster dig ikke ekstra. Alle priser og tilskud er vejledende og bør
+          altid tjekkes mod et konkret tilbud.
         </p>
       </div>
     </footer>

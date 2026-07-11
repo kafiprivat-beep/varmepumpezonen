@@ -1,0 +1,56 @@
+---
+// "Få 3 gratis tilbud"-boks — leadgen-CTA (3byggetilbud-type).
+// -----------------------------------------------------------------------------
+// data-affiliate-slot er en placeholder, hvor det rigtige affiliate-/lead-link
+// (fx et 3byggetilbud-partnerlink eller en indlejret formular) senere sættes
+// ind pr. slot. Selve knappen bærer også data-affiliate-link, så et lille
+// script kan udfylde href centralt uden at røre markup på hver side.
+
+interface Props {
+  /** Unik slot-nøgle, så vi kan style/spore forskellige placeringer. */
+  slotKey?: string;
+  heading?: string;
+  body?: string;
+  /** Kompakt variant til brug midt i en artikel. */
+  variant?: "default" | "inline";
+}
+
+const {
+  slotKey = "default",
+  heading = "Få 3 gratis tilbud på varmepumpe",
+  body = "Sammenlign pris og løsning fra tre lokale, godkendte VVS-installatører. Det er gratis og uforpligtende — og du vælger selv, om du vil gå videre.",
+  variant = "default",
+} = Astro.props;
+
+const bullets = [
+  "Gratis og 100 % uforpligtende",
+  "Lokale, kvalitetssikrede installatører",
+  "Spar tid og penge ved at sammenligne",
+];
+---
+
+<aside
+  class:list={["lead-cta", variant === "inline" && "lead-cta--inline"]}
+  data-affiliate-slot={slotKey}
+  aria-label="Få 3 gratis tilbud på varmepumpe"
+>
+  <div class="lead-cta__body">
+    <span class="lead-cta__eyebrow">Gratis tilbudstjeneste</span>
+    <h3 class="lead-cta__title">{heading}</h3>
+    <p class="lead-cta__text">{body}</p>
+    <ul class="lead-cta__list">
+      {bullets.map((b) => <li>{b}</li>)}
+    </ul>
+  </div>
+  <div class="lead-cta__action">
+    <a
+      class="btn btn-accent btn-lg lead-cta__btn"
+      href="#faa-tilbud"
+      data-affiliate-link={slotKey}
+      rel="nofollow sponsored"
+    >
+      Få 3 gratis tilbud
+    </a>
+    <span class="lead-cta__note">Svar inden for 1–2 hverdage</span>
+  </div>
+</aside>

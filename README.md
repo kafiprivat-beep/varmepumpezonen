@@ -1,43 +1,45 @@
-# Astro Starter Kit: Minimal
+# Varmepumpezonen.dk
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Dansk leadgen-site om varmepumper, bygget med [Astro](https://astro.build) som
+statisk site. Indhold: én stor pillar-guide + 10 supportartikler om typer,
+priser, tilskud (2026), besparelser og drift — med interne links (pillar ↔
+support) og "Få 3 gratis tilbud"-CTA'er til leadgenerering.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Struktur
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── components/
+│   ├── ArticleView.astro    # Fælles artikel-renderer (pillar + support)
+│   ├── LeadCta.astro        # "Få 3 gratis tilbud" med data-affiliate-slot
+│   └── Photo.astro          # Wikimedia Special:FilePath + onerror-fallback
+├── data/
+│   ├── articles.ts          # Pillar + 10 supportartikler (indhold)
+│   └── site.ts              # Brand + navigation
+├── layouts/BaseLayout.astro # <head>, schema (Article/FAQPage/Breadcrumb), nav/footer
+├── pages/
+│   ├── index.astro          # Forside
+│   ├── varmepumpe-guide/     # Pillar-guide
+│   └── artikler/             # Oversigt + dynamiske support-sider ([slug].astro)
+└── styles/global.css        # Energi-tema (grøn + varm orange)
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Kommandoer
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Kommando          | Handling                                    |
+| :---------------- | :------------------------------------------ |
+| `npm install`     | Installér afhængigheder                     |
+| `npm run dev`     | Start dev-server på `localhost:4321`        |
+| `npm run build`   | Byg til statiske filer i `./dist/`          |
+| `npm run preview` | Forhåndsvis produktions-build lokalt        |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Billeder
 
-## 🧞 Commands
+Fotos hentes fra Wikimedia Commons via `Special:FilePath`. Hvis en fil ikke kan
+hentes, falder `onerror` tilbage til den brandede `/images/fallback.svg`, så
+layoutet aldrig knækker.
 
-All commands are run from the root of the project, from a terminal:
+## Affiliate / leads
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`LeadCta.astro` udsender bokse med `data-affiliate-slot`-placeholders. Det
+rigtige lead-/affiliate-link (3byggetilbud-type) sættes ind pr. slot senere.

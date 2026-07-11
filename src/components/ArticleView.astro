@@ -1,0 +1,123 @@
+---
+import Photo from "./Photo.astro";
+import LeadCta from "./LeadCta.astro";
+import { lucide } from "../lib/icons";
+import {
+  type Article,
+  articleUrl,
+  relatedArticles,
+} from "../data/articles";
+
+interface Props {
+  article: Article;
+}
+const { article } = Astro.props;
+const related = relatedArticles(article);
+
+const updated = new Date(article.updated).toLocaleDateString("da-DK", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
+// FAQPage-schema (JSON-LD). Google accepterer JSON-LD i body.
+const faqSchema =
+  article.faq.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: article.faq.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+---
+
+<article class="article">
+  <div class="container">
+    <p class="breadcrumb">
+      <a href="/">Forside</a> ›
+      {
+        article.pillar ? (
+          <span>Varmepumpe-guide</span>
+        ) : (
+          <>
+            <a href="/artikler/">Artikler</a> › <span>{article.title}</span>
+          </>
+        )
+      }
+    </p>
+
+    <header class="article__head">
+      <span class="chip">{article.category}</span>
+      <h1>{article.title}</h1>
+      <p class="article__meta">
+        Opdateret {updated} · {article.readMinutes} min. læsning
+      </p>
+    </header>
+
+    <figure class="article__hero">
+      <Photo
+        file={article.hero.file}
+        alt={article.hero.alt}
+        width={1200}
+        height={720}
+        loading="eager"
+        class="article__hero-img"
+      />
+    </figure>
+  </div>
+
+  <div class="container prose">
+    <LeadCta slotKey="article-top" variant="inline" />
+
+    <Fragment set:html={article.body} />
+
+    <LeadCta slotKey="article-mid" />
+
+    {
+      article.faq.length > 0 && (
+        <section class="article__faq" aria-labelledby="faq-heading">
+          <h2 id="faq-heading">Ofte stillede spørgsmål</h2>
+          <div class="faq-list">
+            {article.faq.map((f) => (
+              <details class="faq-item">
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      related.length > 0 && (
+        <section class="article__related" aria-labelledby="related-heading">
+          <h2 id="related-heading">Læs også</h2>
+          <ul class="related-list">
+            {related.map((r) => (
+              <li>
+                <a href={articleUrl(r)}>
+                  <span>{r.title}</span>
+                  <Fragment set:html={lucide("arrow-right", 16)} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+
+  {
+    faqSchema && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(faqSchema)}
+      />
+    )
+  }
+</article>

@@ -1,23 +1,78 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import AdvertiserCard from "../components/AdvertiserCard.astro";
-import { categories, getFeaturedAdvertisers } from "../data/advertisers";
-import { getCategoryContent } from "../data/categoryContent";
-import { getArticlesSorted } from "../data/articles";
-import {
-  hero,
-  trustBadges,
-  topPicks,
-  guideSteps,
-  stats,
-  homeFaq,
-} from "../data/homepage";
-import { lucide, starsSvg } from "../lib/icons";
+import Photo from "../components/Photo.astro";
+import LeadCta from "../components/LeadCta.astro";
+import { lucide } from "../lib/icons";
+import { getPillar, getSupportArticles, articleUrl } from "../data/articles";
 
-const featured = getFeaturedAdvertisers();
-const latestArticles = getArticlesSorted().slice(0, 3);
+const pillar = getPillar();
+const supports = getSupportArticles();
 
-// FAQPage-schema af forsidens FAQ.
+// Fremhævede guides på forsiden.
+const featuredSlugs = [
+  "varmepumpe-pris-montering-2026",
+  "varmepumpe-tilskud-fradrag-2026",
+  "luft-til-luft-vs-luft-til-vand",
+];
+const featuredGuides = supports.filter((s) => featuredSlugs.includes(s.slug));
+
+const trustBadges = [
+  { icon: "shield-check", label: "Uvildig, uafhængig rådgivning" },
+  { icon: "piggy-bank", label: "Spar op til 50 % på varmen" },
+  { icon: "file-check", label: "27.000 kr. i tilskud i 2026" },
+  { icon: "leaf", label: "Grøn opvarmning uden fossilt brændsel" },
+];
+
+const types = [
+  {
+    icon: "wind",
+    name: "Luft-til-luft",
+    price: "12.000–25.000 kr.",
+    text: "Billig og hurtig at installere. Varmer luften i rummet — ideel til elvarme, supplement og sommerhus.",
+    href: "/artikler/luft-til-luft-vs-luft-til-vand/",
+  },
+  {
+    icon: "home",
+    name: "Luft-til-vand",
+    price: "90.000–150.000 kr.",
+    text: "Danmarks mest solgte. Dækker radiatorer, gulvvarme og varmt vand — det oplagte skift fra olie og gas.",
+    href: "/artikler/luft-til-luft-vs-luft-til-vand/",
+  },
+  {
+    icon: "thermometer",
+    name: "Jordvarme",
+    price: "120.000–180.000 kr.",
+    text: "Højest effektivitet og laveste driftsudgift. Kræver haveareal til jordslanger og en større investering.",
+    href: "/varmepumpe-guide/#jordvarme",
+  },
+];
+
+const stats = [
+  { value: "40–60 %", label: "typisk lavere varmeregning" },
+  { value: "27.000 kr.", label: "tilskud fra varmepumpepuljen 2026" },
+  { value: "5–10 år", label: "typisk tilbagebetalingstid" },
+  { value: "15–20 år", label: "forventet levetid" },
+];
+
+const homeFaq = [
+  {
+    q: "Hvad koster en varmepumpe i 2026?",
+    a: "En luft-til-luft varmepumpe koster typisk 12.000–25.000 kr. inkl. montering, en luft-til-vand varmepumpe 90.000–150.000 kr. og jordvarme 120.000–180.000 kr. Tilskud og fradrag kan trække prisen markant ned.",
+  },
+  {
+    q: "Hvor meget kan jeg spare?",
+    a: "De fleste sparer 40–60 % på varmeregningen. Skifter du fra olie eller elvarme, kan besparelsen nå 15.000–25.000 kr. om året.",
+  },
+  {
+    q: "Hvor meget er tilskuddet i 2026?",
+    a: "Varmepumpepuljen giver i 2026 et fast tilskud på 27.000 kr. til at udskifte olie- eller gasfyr med en luft-til-vand varmepumpe eller jordvarme. Derudover kan håndværkerfradraget bruges på op til 9.000 kr. pr. voksen.",
+  },
+  {
+    q: "Koster det noget at få 3 tilbud?",
+    a: "Nej. At indhente 3 tilbud via os er gratis og uforpligtende. Du bestemmer selv, om du vil gå videre med et af dem.",
+  },
+];
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -30,15 +85,16 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Friluftsudstyr, guides og test til outdoorlivet"
-  description="Friluftsudstyr, guides og test samlet ét sted. Sammenlign telte, soveposer, rygsække, fodtøj og mere — find det bedste outdoorudstyr til din næste tur."
+  title="Varmepumpe 2026: pris, tilskud og de bedste løsninger"
+  description="Uvildig guide til varmepumper: priser inkl. montering, 27.000 kr. i tilskud 2026, besparelser vs. olie og gas — og få 3 gratis, uforpligtende tilbud."
 >
   <script
     slot="head"
     type="application/ld+json"
     set:html={JSON.stringify(faqSchema)}
   />
-  <!-- Slank trust-bar -->
+
+  <!-- Trust-bar -->
   <div class="trust-bar">
     <div class="container">
       {
@@ -52,79 +108,71 @@ const faqSchema = {
     </div>
   </div>
 
-  <!-- Hero i vejleder-tone med rigtigt foto -->
+  <!-- Hero -->
   <section class="hero">
     <div class="container">
       <div class="hero__content">
-        <span class="eyebrow">{hero.eyebrow}</span>
-        <h1>{hero.title}</h1>
-        <p class="hero__lead">{hero.lead}</p>
+        <span class="eyebrow">Din uvildige varmepumpe-guide</span>
+        <h1>Skift til varmepumpe — og halvér varmeregningen</h1>
+        <p class="hero__lead">
+          Få styr på typer, priser og tilskud i 2026 — og modtag 3 gratis,
+          uforpligtende tilbud fra lokale installatører. Vi hjælper dig med at
+          vælge den rigtige løsning til dit hus.
+        </p>
         <div class="hero__cta">
-          <a href={hero.primaryCta.href} class="btn btn-accent btn-lg">
-            {hero.primaryCta.label}
+          <a href="#faa-tilbud" class="btn btn-accent btn-lg" data-affiliate-link="hero">
+            Få 3 gratis tilbud
             <Fragment set:html={lucide("arrow-right", 20)} />
           </a>
-          <a href={hero.secondaryCta.href} class="btn btn-outline btn-lg">
-            {hero.secondaryCta.label}
+          <a href="/varmepumpe-guide/" class="btn btn-outline btn-lg">
+            Læs den store guide
           </a>
         </div>
       </div>
       <div class="hero__media">
-        <img
-          src={hero.image}
-          alt={hero.imageAlt}
-          width="800"
-          height="640"
+        <Photo
+          file="Heat Pump.jpg"
+          alt="Udendørs varmepumpe monteret ved facaden på et dansk parcelhus"
+          width={900}
+          height={720}
           loading="eager"
-          decoding="async"
+          class="hero__img"
         />
         <div class="hero__badge">
-          <span class="stars">
-            <span class="stars__icons" set:html={starsSvg(5)} />
-          </span>
+          <Fragment set:html={lucide("piggy-bank", 26)} />
           <div>
-            <strong>{hero.badge.title}</strong>
-            <span>{hero.badge.subtitle}</span>
+            <strong>27.000 kr. i tilskud</strong>
+            <span>via varmepumpepuljen 2026</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Shop efter behov -->
-  <section class="section" id="shop">
+  <!-- Typer -->
+  <section class="section" id="typer">
     <div class="container">
       <div class="section-head">
-        <h2 class="section-title">Shop efter behov</h2>
+        <h2 class="section-title">Hvilken varmepumpe passer til dit hus?</h2>
         <p class="section-subtitle">
-          Otte kategorier dækker alt det grej, du har brug for på tur — vælg
-          det, du er i gang med.
+          Tre hovedtyper dækker de fleste danske boliger. Her er forskellen på
+          pris, opvarmning og hvad de egner sig til.
         </p>
       </div>
-      <div class="grid grid-categories">
+      <div class="grid grid-types">
         {
-          categories.map((c) => (
-            <a href={`/${c.slug}/`} class="card category-card">
-              <div class="cat-photo">
-                <img
-                  src={`/images/categories/${c.slug}.webp`}
-                  alt={`${c.name} – friluftsudstyr`}
-                  width="800"
-                  height="500"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div class="cat-body">
-                <h3>{c.name}</h3>
-                <p class="cat-desc">
-                  {getCategoryContent(c.slug)?.cardBlurb ?? c.description}
-                </p>
-                <span class="cat-link">
-                  Se produkter
-                  <Fragment set:html={lucide("arrow-right", 16)} />
-                </span>
-              </div>
+          types.map((t) => (
+            <a href={t.href} class="card type-card">
+              <span class="type-card__icon">
+                <Fragment set:html={lucide(t.icon, 26)} />
+              </span>
+              <h3>{t.name}</h3>
+              <p class="type-card__price">{t.price}<span>inkl. montering</span></p>
+              <p class="type-card__text">{t.text}</p>
+              <span class="cat-link">
+                Læs mere
+                <Fragment set:html={lucide("arrow-right", 16)} />
+              </span>
             </a>
           ))
         }
@@ -132,104 +180,23 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- Bedst i test -->
+  <!-- Lead-CTA -->
+  <section class="section-tight" id="faa-tilbud">
+    <div class="container">
+      <LeadCta slotKey="home-primary" />
+    </div>
+  </section>
+
+  <!-- Besparelse / tal -->
   <section class="section section-secondary">
     <div class="container">
       <div class="section-head">
-        <h2 class="section-title">Bedst i test</h2>
+        <h2 class="section-title">Regnestykket taler for sig selv</h2>
         <p class="section-subtitle">
-          Vores redaktions favoritter i hver kategori — og hvorfor de er værd at
-          kigge på.
+          En varmepumpe er både en økonomisk og en grøn investering. Sådan ser
+          tallene typisk ud for et dansk parcelhus i 2026.
         </p>
       </div>
-      <div class="grid grid-picks">
-        {
-          topPicks.map((p) => (
-            <article class="pick-card">
-              <div class="pick-card__media">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  width="600"
-                  height="450"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span class="pick-card__tag">{p.tag}</span>
-              </div>
-              <div class="pick-card__body">
-                <span class="stars">
-                  <span class="stars__icons" set:html={starsSvg(p.rating)} />
-                  <span class="stars__value">{p.rating.toFixed(1)}</span>
-                </span>
-                <h3>{p.title}</h3>
-                <p class="pick-card__blurb">{p.blurb}</p>
-                <div class="pick-card__foot">
-                  <span class="pick-card__price">
-                    {p.priceFrom}
-                    <span>hos danske butikker</span>
-                  </span>
-                </div>
-                <a href={`/${p.categorySlug}/`} class="btn btn-primary">
-                  {p.cta}
-                  <Fragment set:html={lucide("arrow-right", 18)} />
-                </a>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Kort købsguide -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <h2 class="section-title">Sådan vælger du grej, der holder</h2>
-        <p class="section-subtitle">
-          Tre trin, der gør valget nemmere — uanset om det er din første tur
-          eller din femtiende.
-        </p>
-      </div>
-      <div class="steps">
-        {
-          guideSteps.map((s, i) => (
-            <div class="step">
-              <span class="step__num">{i + 1}</span>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-            </div>
-          ))
-        }
-      </div>
-      <p style="margin-top:1.75rem;">
-        <a href="/artikler/" class="btn btn-outline">
-          Se alle guides
-          <Fragment set:html={lucide("arrow-right", 18)} />
-        </a>
-      </p>
-    </div>
-  </section>
-
-  <!-- Anbefalede butikker -->
-  <section class="section section-secondary">
-    <div class="container">
-      <div class="section-head">
-        <h2 class="section-title">Anbefalede butikker</h2>
-        <p class="section-subtitle">
-          Vores foretrukne danske forhandlere af friluftsudstyr.
-        </p>
-      </div>
-      <div class="grid grid-cards">
-        {featured.map((a) => <AdvertiserCard advertiser={a} />)}
-      </div>
-    </div>
-  </section>
-
-  <!-- Trust-tal -->
-  <section class="section-tight">
-    <div class="container">
       <div class="stats">
         {
           stats.map((s) => (
@@ -243,30 +210,52 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- Seneste guides -->
+  <!-- Populære guides -->
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <h2 class="section-title">Seneste guides</h2>
-        <p class="section-subtitle">Bliv klogere, før du pakker rygsækken.</p>
+        <h2 class="section-title">Bliv klogere før du vælger</h2>
+        <p class="section-subtitle">
+          Start med den store guide — eller dyk ned i de mest læste emner.
+        </p>
       </div>
-      <div class="grid grid-cards">
+
+      <a href={articleUrl(pillar)} class="pillar-banner">
+        <div class="pillar-banner__media">
+          <Photo file={pillar.hero.file} alt={pillar.hero.alt} width={900} height={600} />
+        </div>
+        <div class="pillar-banner__body">
+          <span class="chip">Start her · Stor guide</span>
+          <h2>{pillar.title}</h2>
+          <p>{pillar.excerpt}</p>
+          <span class="cat-link">
+            Læs guiden
+            <Fragment set:html={lucide("arrow-right", 16)} />
+          </span>
+        </div>
+      </a>
+
+      <div class="grid grid-cards" style="margin-top:2.5rem;">
         {
-          latestArticles.map((art) => (
-            <a href={`/artikler/${art.slug}/`} class="card article-card">
-              <p class="meta">
-                {art.date} · {art.author}
-              </p>
+          featuredGuides.map((art) => (
+            <a href={articleUrl(art)} class="card article-card">
+              <span class="chip">{art.category}</span>
               <h3>{art.title}</h3>
               <p>{art.excerpt}</p>
               <span class="cat-link">
-                Læs guiden
+                Læs mere
                 <Fragment set:html={lucide("arrow-right", 16)} />
               </span>
             </a>
           ))
         }
       </div>
+      <p style="margin-top:1.75rem;">
+        <a href="/artikler/" class="btn btn-outline">
+          Se alle artikler
+          <Fragment set:html={lucide("arrow-right", 18)} />
+        </a>
+      </p>
     </div>
   </section>
 
@@ -275,9 +264,7 @@ const faqSchema = {
     <div class="container">
       <div class="section-head">
         <h2 class="section-title">Ofte stillede spørgsmål</h2>
-        <p class="section-subtitle">
-          Det du bør vide om, hvordan livetoutdoor.dk fungerer.
-        </p>
+        <p class="section-subtitle">Det, de fleste spørger om, før de skifter.</p>
       </div>
       <div class="faq-list">
         {
