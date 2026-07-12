@@ -1,55 +1,48 @@
 /* ============================================================================
-   livetoutdoor.dk — designsystem ("vejleder"-skabelon)
+   Varmepumpezonen.dk — designsystem "Mynte"
    ----------------------------------------------------------------------------
-   Lys, varm base + mørk blæk-tekst + skovgrøn accent. Varm serif (Fraunces)
-   til overskrifter, Inter til brødtekst. Rigelig whitespace, bløde skygger,
-   runde hjørner.
-
-   GENBRUG PÅ ANDRE SITES:
-   Skift kun (1) accent-farverne herunder til nichens farve og (2) fotos i
-   /public/images/. Alt layout, komponenter og typografi følger med uændret.
+   Rolig, lys mynte-base med én smaragd-accent. Manrope (display, blød geometrisk
+   sans) til overskrifter, Atkinson Hyperlegible til brødtekst. Meget whitespace,
+   få elementer pr. skærm, lette skygger, tynde 1px kanter, bløde 14px hjørner.
+   Tynde runde streg-ikoner. Ingen emojis som grafik.
    ========================================================================== */
 
 :root {
-  /* ── Base (lys, varm) ── */
-  --color-bg: #faf9f6; /* varm off-white base */
-  --color-surface: #ffffff; /* kort / paneler */
-  --color-secondary: #f3f1ea; /* varmt sekundært panel */
-  --color-tint: #eaf1ea; /* svag accent-tone til badges/felter */
+  /* ── Palette (lys) ── */
+  --color-bg: #f3f9f5;
+  --color-surface: #ffffff;
+  --color-secondary: #ecf5f0; /* rolig sekundær flade */
+  --color-tint: #e4f3ec; /* svag smaragd-tone til chips/badges */
 
-  /* ── Tekst (mørk blæk) ── */
-  --color-text: #1b2420; /* blæk */
-  --color-text-muted: #55605a;
-  --color-border: #e7e3d8; /* varm kant */
+  --color-text: #16211c;
+  --color-text-muted: #55635c;
+  --color-border: #dbebe2;
 
-  /* ── Accent = skovgrøn (skift pr. niche) ── */
-  --color-forest: #1e3a2a; /* dyb grøn — footer, mørke flader */
-  --color-forest-deep: #16281e;
-  --color-accent: #2f6b3c; /* interaktiv/anbefalings-grøn */
-  --color-accent-dark: #234f2d;
-  --color-accent-light: #4c9460;
-  /* Aliaser for ældre skabeloner (kategori-/artikelsider) */
+  --color-accent: #138a5e; /* smaragd */
+  --color-accent-dark: #0e6b49; /* mørkere smaragd (hover/link) */
+  --color-link: #0e6b49;
+  --color-on-accent: #ffffff;
+
+  /* Aliaser for ældre komponentnavne */
   --color-primary: var(--color-accent);
   --color-primary-dark: var(--color-accent-dark);
 
-  /* Varm rav — KUN til stjerner/bedømmelser (diskret) */
-  --color-star: #e0a63e;
-
   /* ── Form ── */
-  --radius: 16px;
+  --radius: 14px;
   --radius-sm: 12px;
+  --radius-btn: 12px;
   --radius-pill: 999px;
 
-  --shadow-sm: 0 1px 2px rgba(27, 36, 32, 0.05), 0 2px 8px rgba(27, 36, 32, 0.04);
-  --shadow: 0 4px 14px rgba(27, 36, 32, 0.06), 0 12px 32px rgba(27, 36, 32, 0.06);
-  --shadow-hover: 0 10px 28px rgba(27, 36, 32, 0.1),
-    0 24px 56px rgba(27, 36, 32, 0.1);
+  /* Meget lette skygger */
+  --shadow-sm: 0 1px 2px rgba(22, 33, 28, 0.04);
+  --shadow: 0 2px 8px rgba(22, 33, 28, 0.05);
+  --shadow-hover: 0 8px 24px rgba(22, 33, 28, 0.08);
 
-  --max-width: 1160px;
-  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, "Times New Roman",
-    serif;
+  --max-width: 1120px;
+  --font: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-display: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -65,7 +58,7 @@ body {
   font-family: var(--font);
   color: var(--color-text);
   background: var(--color-bg);
-  line-height: 1.65;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -75,14 +68,14 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.12;
+  font-weight: 700;
+  line-height: 1.18;
   color: var(--color-text);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.018em;
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-link);
   text-decoration: none;
 }
 a:hover {
@@ -106,9 +99,10 @@ img {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.85rem 1.6rem;
-  border-radius: var(--radius-pill);
-  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: 0.98rem;
   line-height: 1;
   text-align: center;
@@ -118,50 +112,63 @@ img {
     background 0.15s ease,
     border-color 0.15s ease,
     color 0.15s ease,
-    transform 0.06s ease,
     box-shadow 0.15s ease;
 }
 .btn:hover {
   text-decoration: none;
 }
-.btn:active {
-  transform: translateY(1px);
-}
-.btn-primary,
-.btn-accent {
+/* Primær = solid smaragd */
+.btn-accent,
+.btn-primary {
   background: var(--color-accent);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(47, 107, 60, 0.24);
+  color: var(--color-on-accent);
 }
-.btn-primary:hover,
-.btn-accent:hover {
+.btn-accent:hover,
+.btn-primary:hover {
   background: var(--color-accent-dark);
-  color: #fff;
+  color: var(--color-on-accent);
 }
+/* Sekundær = smaragd outline */
 .btn-outline {
   background: transparent;
   color: var(--color-accent);
-  border-color: var(--color-border);
+  border-color: var(--color-accent);
 }
 .btn-outline:hover {
-  background: var(--color-surface);
-  border-color: var(--color-accent);
+  background: var(--color-tint);
   color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
 }
 .btn-lg {
-  padding: 1rem 1.9rem;
+  padding: 0.95rem 1.8rem;
   font-size: 1.05rem;
 }
 .btn svg {
   width: 1.05em;
   height: 1.05em;
-  stroke-width: 2;
 }
 
-/* ── Header (lys, sticky) ────────────────────────────── */
+/* ── Chip / eyebrow ──────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+  background: var(--color-tint);
+  padding: 0.32rem 0.7rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.75rem;
+}
+
+/* ── Header (lys, sticky, minimal) ───────────────────── */
 .site-header {
-  background: rgba(250, 249, 246, 0.85);
-  backdrop-filter: saturate(180%) blur(12px);
+  background: rgba(243, 249, 245, 0.88);
+  backdrop-filter: saturate(160%) blur(12px);
   border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
@@ -172,39 +179,53 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 72px;
+  min-height: 76px;
   flex-wrap: wrap;
 }
+/* Logo: wordmark (Manrope) + inline SVG-mærke */
 .logo {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   color: var(--color-text);
-  letter-spacing: -0.02em;
 }
 .logo:hover {
   text-decoration: none;
 }
-.logo span {
-  color: var(--color-accent);
+.logo__mark {
+  display: inline-flex;
+  flex: none;
+}
+.logo__mark svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+.logo__word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.28rem;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 .main-nav {
   display: flex;
-  gap: 1.6rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
   align-items: center;
 }
 .main-nav a {
   color: var(--color-text-muted);
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.94rem;
 }
 .main-nav a:hover {
   color: var(--color-accent);
   text-decoration: none;
 }
 
-/* ── Trust-bar (slank) ───────────────────────────────── */
+/* ── Trust-bar (rolig) ───────────────────────────────── */
 .trust-bar {
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
@@ -213,16 +234,16 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem 2.25rem;
-  padding-top: 0.85rem;
-  padding-bottom: 0.85rem;
+  gap: 0.85rem 2.5rem;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
 }
 .trust-bar__item {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.86rem;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-text-muted);
 }
 .trust-bar__item svg {
@@ -232,14 +253,14 @@ img {
   flex: none;
 }
 
-/* ── Hero (vejleder-tone, rigtigt foto) ──────────────── */
+/* ── Hero (lys, luftig) ──────────────────────────────── */
 .hero {
-  padding: 4rem 0 3.5rem;
+  padding: 5rem 0 4.5rem;
 }
 .hero .container {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 3.5rem;
+  gap: 4rem;
   align-items: center;
 }
 .hero__content {
@@ -249,26 +270,26 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: var(--font);
-  font-weight: 600;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-dark);
   background: var(--color-tint);
   padding: 0.4rem 0.85rem;
   border-radius: var(--radius-pill);
-  margin: 0 0 1.35rem;
+  margin: 0 0 1.5rem;
 }
 .hero h1 {
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  margin: 0 0 1.15rem;
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  margin: 0 0 1.25rem;
   letter-spacing: -0.03em;
 }
 .hero__lead {
-  font-size: 1.2rem;
+  font-size: 1.18rem;
   color: var(--color-text-muted);
-  margin: 0 0 2rem;
+  margin: 0 0 2.25rem;
 }
 .hero__cta {
   display: flex;
@@ -284,27 +305,32 @@ img {
   aspect-ratio: 5 / 4;
   object-fit: cover;
   border-radius: var(--radius);
+  border: 1px solid var(--color-border);
   box-shadow: var(--shadow);
   display: block;
 }
-/* Lille "flydende" bedømmelses-chip ovenpå fotoet */
 .hero__badge {
   position: absolute;
   left: -0.75rem;
   bottom: 1.25rem;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 0.7rem 0.95rem;
+  padding: 0.75rem 1rem;
   box-shadow: var(--shadow);
-  max-width: 15rem;
+  max-width: 16rem;
+}
+.hero__badge svg {
+  color: var(--color-accent);
+  flex: none;
 }
 .hero__badge strong {
   display: block;
-  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
   color: var(--color-text);
 }
 .hero__badge span {
@@ -314,25 +340,20 @@ img {
 
 /* ── Sektioner ───────────────────────────────────────── */
 .section {
-  padding: 4rem 0;
+  padding: 4.5rem 0;
 }
 .section-tight {
-  padding: 2.75rem 0;
+  padding: 2.5rem 0;
 }
 .section-secondary {
   background: var(--color-secondary);
 }
 .section-head {
   max-width: 42rem;
-  margin: 0 0 2.25rem;
-}
-.section-head--center {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  margin: 0 0 2.5rem;
 }
 .section-title {
-  font-size: clamp(1.7rem, 3vw, 2.15rem);
+  font-size: clamp(1.7rem, 3vw, 2.1rem);
   margin: 0 0 0.6rem;
   letter-spacing: -0.02em;
 }
@@ -347,428 +368,395 @@ img {
   display: grid;
   gap: 1.5rem;
 }
-.grid-categories {
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-}
 .grid-cards {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
-.grid-picks {
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+.grid-types {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-/* ── Kort (generisk) ─────────────────────────────────── */
+/* ── Kort (generisk, luftig padding) ─────────────────── */
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: 1.6rem;
+  padding: 1.9rem;
   box-shadow: var(--shadow-sm);
   transition:
     box-shadow 0.18s ease,
-    transform 0.18s ease,
     border-color 0.18s ease;
 }
 .card:hover {
   box-shadow: var(--shadow-hover);
-  transform: translateY(-4px);
+  border-color: var(--color-accent);
 }
 
-/* ── "Shop efter behov"-kort (foto) ──────────────────── */
-.category-card {
+/* ── Type-kort (forside) ─────────────────────────────── */
+.type-card {
   display: flex;
   flex-direction: column;
   color: inherit;
-  padding: 0;
-  overflow: hidden;
 }
-.category-card:hover {
+.type-card:hover {
   text-decoration: none;
-  border-color: var(--color-accent-light);
 }
-.cat-photo {
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: var(--color-secondary);
-}
-.cat-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
-}
-.category-card:hover .cat-photo img {
-  transform: scale(1.06);
-}
-.cat-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  padding: 1.3rem 1.4rem 1.5rem;
-}
-.category-card h3 {
-  margin: 0 0 0.4rem;
-  color: var(--color-text);
-  font-size: 1.3rem;
-}
-.category-card .cat-desc {
-  margin: 0 0 1.1rem;
-  color: var(--color-text-muted);
-  font-size: 0.94rem;
-  flex: 1 1 auto;
-}
-.category-card .cat-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-weight: 600;
-  font-size: 0.92rem;
-  color: var(--color-accent);
-}
-.category-card:hover .cat-link {
-  gap: 0.6rem;
-}
-
-/* ── Stjerner (rav, diskret) ─────────────────────────── */
-.stars {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.stars__icons {
-  display: inline-flex;
-  gap: 1px;
-  color: var(--color-star);
-}
-.stars__icons svg {
-  width: 16px;
-  height: 16px;
-}
-.stars__value {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
-/* ── "Bedst i test"-kort (produkt/anbefaling) ────────── */
-.pick-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition:
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
-}
-.pick-card:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-4px);
-}
-.pick-card__media {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background: var(--color-secondary);
-}
-.pick-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.pick-card__tag {
-  position: absolute;
-  top: 0.8rem;
-  left: 0.8rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fff;
-  background: var(--color-accent);
-  padding: 0.32rem 0.6rem;
-  border-radius: var(--radius-pill);
-  box-shadow: 0 4px 12px rgba(47, 107, 60, 0.3);
-}
-.pick-card__body {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  gap: 0.6rem;
-  padding: 1.2rem 1.35rem 1.4rem;
-}
-.pick-card__body h3 {
-  margin: 0;
-  font-size: 1.18rem;
-}
-.pick-card__blurb {
-  margin: 0;
-  font-size: 0.92rem;
-  color: var(--color-text-muted);
-  flex: 1 1 auto;
-}
-.pick-card__foot {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-top: 0.2rem;
-}
-.pick-card__price {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.12rem;
-  color: var(--color-text);
-}
-.pick-card__price span {
-  display: block;
-  font-family: var(--font);
-  font-weight: 500;
-  font-size: 0.72rem;
-  color: var(--color-text-muted);
-}
-.pick-card .btn {
-  margin-top: 0.4rem;
-}
-
-/* ── Kort købsguide (trin) ───────────────────────────── */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-.step {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 1.6rem 1.5rem;
-  box-shadow: var(--shadow-sm);
-}
-.step__num {
+.type-card__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.35rem;
-  height: 2.35rem;
-  border-radius: var(--radius-pill);
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-sm);
   background: var(--color-tint);
-  color: var(--color-accent-dark);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  color: var(--color-accent);
+  margin-bottom: 1.1rem;
 }
-.step h3 {
+.type-card h3 {
   margin: 0 0 0.4rem;
-  font-size: 1.15rem;
+  font-size: 1.28rem;
 }
-.step p {
-  margin: 0;
+.type-card__price {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.12rem;
+  color: var(--color-accent-dark);
+  margin: 0 0 0.85rem;
+}
+.type-card__price span {
+  display: block;
+  font-family: var(--font);
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+.type-card__text {
+  margin: 0 0 1.25rem;
   color: var(--color-text-muted);
   font-size: 0.95rem;
+  flex: 1 1 auto;
+}
+.cat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-accent);
+}
+.card:hover .cat-link,
+.pillar-banner:hover .cat-link {
+  gap: 0.65rem;
 }
 
-/* ── Trust-tal (statistik) ───────────────────────────── */
+/* ── Statistik ───────────────────────────────────────── */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.5rem;
+  gap: 2rem 1.5rem;
   text-align: center;
 }
 .stat__value {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3.6vw, 2.5rem);
   color: var(--color-accent);
   line-height: 1;
   letter-spacing: -0.02em;
 }
 .stat__label {
-  margin: 0.5rem 0 0;
+  margin: 0.55rem 0 0;
   font-size: 0.92rem;
   color: var(--color-text-muted);
 }
 
-/* ── Kategori-hero (foto-banner på kategorisider) ────── */
-.cat-hero {
-  position: relative;
+/* ── Pillar-banner (fremhævet guide) ─────────────────── */
+.pillar-banner {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius);
   overflow: hidden;
-  min-height: 280px;
-  display: flex;
-  align-items: flex-end;
-  padding: 2rem;
-  margin-bottom: 1.75rem;
-  background-color: var(--color-forest);
-  background-size: cover;
-  background-position: center;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-sm);
+  color: inherit;
+  transition:
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
 }
-.cat-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(22, 40, 30, 0.1) 0%,
-    rgba(22, 40, 30, 0.5) 55%,
-    rgba(22, 40, 30, 0.85) 100%
-  );
+.pillar-banner:hover {
+  text-decoration: none;
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-accent);
 }
-.cat-hero-inner {
-  position: relative;
-  z-index: 1;
-  color: var(--color-secondary);
+.pillar-banner__media {
+  min-height: 240px;
+  background: var(--color-secondary);
 }
-.cat-hero-inner h1 {
-  color: #fff;
-  font-size: clamp(1.9rem, 4vw, 2.6rem);
-  margin: 0 0 0.4rem;
+.pillar-banner__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-.cat-hero-inner p {
-  margin: 0;
-  max-width: 640px;
-  color: rgba(245, 240, 230, 0.94);
-  font-size: 1.05rem;
-}
-
-/* ── Forhandler-kort ─────────────────────────────────── */
-.advertiser-card {
+.pillar-banner__body {
+  padding: 2.25rem 2.25rem;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: center;
 }
-.advertiser-card h3 {
+.pillar-banner__body h2 {
   margin: 0 0 0.6rem;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
-.advertiser-card .desc {
-  margin: 0 0 1rem;
+.pillar-banner__body p {
+  margin: 0 0 1.25rem;
   color: var(--color-text-muted);
-  font-size: 0.95rem;
-}
-.usps {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5rem;
-  font-size: 0.9rem;
-}
-.usps li {
-  padding-left: 1.6rem;
-  position: relative;
-  margin-bottom: 0.4rem;
-  color: var(--color-text);
-}
-.usps li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.5em;
-  width: 0.75rem;
-  height: 0.42rem;
-  border-left: 2px solid var(--color-accent);
-  border-bottom: 2px solid var(--color-accent);
-  transform: rotate(-45deg);
-}
-.advertiser-card .btn {
-  margin-top: auto;
-  align-self: flex-start;
 }
 
 /* ── Artikelkort ─────────────────────────────────────── */
 .article-card {
   display: flex;
   flex-direction: column;
+  color: inherit;
+}
+.article-card:hover {
+  text-decoration: none;
 }
 .article-card h3 {
   margin: 0 0 0.5rem;
-  font-size: 1.25rem;
-}
-.article-card .meta {
-  font-size: 0.84rem;
-  color: var(--color-text-muted);
-  margin: 0 0 0.6rem;
+  font-size: 1.2rem;
 }
 .article-card p {
-  margin: 0 0 1rem;
+  margin: 0 0 1.15rem;
+  color: var(--color-text-muted);
+  flex: 1 1 auto;
+}
+
+/* ── Lead-CTA ("Få 3 gratis tilbud") — lys, rolig ────── */
+.lead-cta {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 1.5rem 2.5rem;
+  align-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  padding: 2.25rem 2.4rem;
+  box-shadow: var(--shadow-sm);
+}
+.lead-cta--inline {
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  padding: 1.9rem 2rem;
+  margin: 2.5rem 0;
+}
+.lead-cta__eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.65rem;
+}
+.lead-cta__title {
+  color: var(--color-text);
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  margin: 0 0 0.6rem;
+}
+.lead-cta__text {
+  margin: 0 0 1.1rem;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+.lead-cta__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.5rem;
+}
+.lead-cta__list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+.lead-cta__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 0.7rem;
+  height: 0.4rem;
+  border-left: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  transform: rotate(-45deg);
+}
+.lead-cta__action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+.lead-cta--inline .lead-cta__action {
+  align-items: stretch;
+}
+.lead-cta__btn {
+  width: 100%;
+}
+.lead-cta__note {
+  font-size: 0.8rem;
   color: var(--color-text-muted);
 }
-.article-card .cat-link {
-  margin-top: auto;
-  font-weight: 600;
+
+/* ── Artikel-layout ──────────────────────────────────── */
+.article {
+  padding: 2.75rem 0 4.5rem;
+}
+.article__head {
+  max-width: 720px;
+  margin: 0 auto 1.75rem;
+}
+.article__head h1 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  margin: 0 0 0.6rem;
+}
+.article__meta {
+  color: var(--color-text-muted);
   font-size: 0.9rem;
-  color: var(--color-accent);
+  margin: 0;
+}
+.article__hero {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.article__hero img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+  display: block;
 }
 
 /* ── Prosa (artikelbrødtekst) ────────────────────────── */
 .prose {
   max-width: 720px;
-  margin: 0 auto;
 }
-.prose h1 {
-  font-size: clamp(2rem, 4vw, 2.7rem);
-  margin: 0 0 0.75rem;
+.prose .lead {
+  font-size: 1.2rem;
+  color: var(--color-text);
+  margin: 1.75rem 0;
 }
 .prose h2 {
-  margin-top: 2.25rem;
-  font-size: 1.6rem;
-}
-.prose p {
-  margin: 1rem 0;
+  margin-top: 2.6rem;
+  font-size: 1.55rem;
+  scroll-margin-top: 96px;
 }
 .prose h3 {
-  margin-top: 1.75rem;
-  font-size: 1.25rem;
+  margin-top: 2rem;
+  font-size: 1.22rem;
+}
+.prose p {
+  margin: 1.1rem 0;
+}
+.prose ul,
+.prose ol {
+  margin: 1.1rem 0;
+  padding-left: 1.35rem;
+}
+.prose li {
+  margin: 0.45rem 0;
 }
 .prose figure {
-  margin: 2rem 0;
+  margin: 2.25rem 0;
 }
 .prose figure img {
   width: 100%;
   border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
   display: block;
 }
 .prose figcaption {
-  margin-top: 0.5rem;
+  margin-top: 0.55rem;
   font-size: 0.85rem;
   color: var(--color-text-muted);
   text-align: center;
 }
 
-.breadcrumb {
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-  margin-bottom: 1.5rem;
+/* Tabeller i prosa */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
 }
-.breadcrumb a {
-  color: var(--color-text-muted);
+.prose figure:has(table) {
+  overflow-x: auto;
 }
-.breadcrumb a:hover {
-  color: var(--color-accent);
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.75rem 0.95rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.prose th {
+  font-family: var(--font-display);
+  background: var(--color-tint);
+  color: var(--color-accent-dark);
+  font-weight: 700;
+}
+.prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Fallback-billede (Wikimedia fejlede) */
+.photo--fallback {
+  object-fit: contain !important;
+  background: var(--color-tint);
+  padding: 0;
 }
 
 /* ── FAQ (accordion) ─────────────────────────────────── */
+.article__faq,
+.article__related {
+  max-width: 720px;
+  margin: 3.25rem 0 0;
+}
+.article__faq h2,
+.article__related h2 {
+  font-size: 1.5rem;
+  margin: 0 0 1.25rem;
+}
 .faq-list {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  max-width: 780px;
+  max-width: 800px;
 }
 .faq-item {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 0.25rem 1.3rem;
+  padding: 0.25rem 1.35rem;
   box-shadow: var(--shadow-sm);
 }
 .faq-item summary {
   cursor: pointer;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: 1.02rem;
   padding: 1rem 2rem 1rem 0;
   list-style: none;
@@ -783,8 +771,8 @@ img {
   position: absolute;
   right: 0.1rem;
   top: 1.35rem;
-  width: 0.7rem;
-  height: 0.7rem;
+  width: 0.65rem;
+  height: 0.65rem;
   border-right: 2px solid var(--color-accent);
   border-bottom: 2px solid var(--color-accent);
   transform: rotate(45deg);
@@ -799,29 +787,65 @@ img {
   color: var(--color-text-muted);
 }
 
-/* ── Disclosure ──────────────────────────────────────── */
-.disclosure {
-  background: var(--color-secondary);
+/* ── "Læs også" (related) ────────────────────────────── */
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.related-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1.2rem;
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 0.9rem 1.15rem;
-  font-size: 0.85rem;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease;
+}
+.related-list a:hover {
+  text-decoration: none;
+  border-color: var(--color-accent);
+}
+.related-list svg {
+  color: var(--color-accent);
+  flex: none;
+}
+
+/* ── Brødkrummer ─────────────────────────────────────── */
+.breadcrumb {
+  font-size: 0.9rem;
   color: var(--color-text-muted);
-  margin: 1.5rem 0;
+  margin-bottom: 1.5rem;
+  max-width: 720px;
+}
+.breadcrumb a {
+  color: var(--color-text-muted);
+}
+.breadcrumb a:hover {
+  color: var(--color-accent);
 }
 
 /* ── Footer ──────────────────────────────────────────── */
 .site-footer {
-  background: var(--color-forest-deep);
-  color: #cdd8ca;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
   padding: 3.5rem 0 2.5rem;
-  margin-top: 4rem;
+  margin-top: 5rem;
 }
 .site-footer a {
-  color: #eef3ea;
+  color: var(--color-text);
 }
 .site-footer a:hover {
-  color: var(--color-accent-light);
+  color: var(--color-accent);
 }
 .site-footer .container {
   display: flex;
@@ -830,12 +854,12 @@ img {
   flex-wrap: wrap;
 }
 .site-footer h4 {
-  color: #fff;
+  color: var(--color-text);
   margin: 0 0 0.85rem;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
 }
 .site-footer p {
-  color: rgba(205, 216, 202, 0.85);
+  color: var(--color-text-muted);
 }
 .site-footer ul {
   list-style: none;
@@ -846,26 +870,29 @@ img {
   margin-bottom: 0.45rem;
 }
 .site-footer li a {
-  color: rgba(238, 243, 234, 0.85);
+  color: var(--color-text-muted);
   font-size: 0.94rem;
+}
+.site-footer li a:hover {
+  color: var(--color-accent);
 }
 .site-footer .copyright {
   width: 100%;
-  border-top: 1px solid rgba(245, 240, 230, 0.15);
+  border-top: 1px solid var(--color-border);
   padding-top: 1.35rem;
   margin-top: 1rem;
-  font-size: 0.85rem;
-  color: rgba(205, 216, 202, 0.75);
+  font-size: 0.83rem;
+  color: var(--color-text-muted);
 }
 
 /* ── Responsivt ──────────────────────────────────────── */
 @media (max-width: 860px) {
   .hero {
-    padding: 2.5rem 0 2rem;
+    padding: 3rem 0 2.5rem;
   }
   .hero .container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.25rem;
   }
   .hero__content {
     max-width: none;
@@ -877,13 +904,28 @@ img {
     aspect-ratio: 16 / 10;
   }
   .section {
-    padding: 3rem 0;
+    padding: 3.25rem 0;
+  }
+  .pillar-banner {
+    grid-template-columns: 1fr;
+  }
+  .pillar-banner__media {
+    min-height: 200px;
+    aspect-ratio: 16 / 9;
+  }
+  .lead-cta {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.9rem 1.75rem;
+  }
+  .lead-cta__action {
+    align-items: stretch;
   }
 }
 
 @media (max-width: 640px) {
   .site-header .container {
-    min-height: 60px;
+    min-height: 62px;
   }
   .main-nav {
     gap: 1rem;
@@ -894,6 +936,6 @@ img {
     flex: 1 1 auto;
   }
   .hero__badge {
-    left: 0.75rem;
+    left: 0.5rem;
   }
 }

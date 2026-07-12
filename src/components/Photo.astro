@@ -1,0 +1,47 @@
+---
+// Foto fra Wikimedia Commons via Special:FilePath (fri licens / CC).
+// -----------------------------------------------------------------------------
+// Special:FilePath redirecter til den aktuelle fil, uanset thumbnail-hash, og
+// understøtter ?width= til at hente en passende opløsning. Skulle en fil være
+// fjernet eller omdøbt på Commons, fanger onerror det og viser en lokal,
+// brandet SVG-fallback i stedet — så layoutet aldrig knækker.
+
+interface Props {
+  /** Filnavn på Wikimedia Commons UDEN "File:"-præfiks, fx "Heat_pump_on_a_wall.jpg". */
+  file: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  /** eager til hero/above-the-fold, ellers lazy. */
+  loading?: "eager" | "lazy";
+  class?: string;
+}
+
+const {
+  file,
+  alt,
+  width = 1200,
+  height = 800,
+  loading = "lazy",
+  class: className,
+} = Astro.props;
+
+// encodeURIComponent bevarer mellemrum som %20 og håndterer æøå/parenteser.
+const src = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(
+  file,
+)}?width=${width}`;
+
+// Lokal fallback (findes altid i /public) — vises hvis Commons-filen fejler.
+const fallback = "/images/fallback.svg";
+---
+
+<img
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  decoding="async"
+  class:list={["photo", className]}
+  onerror={`this.onerror=null;this.src='${fallback}';this.classList.add('photo--fallback');`}
+/>

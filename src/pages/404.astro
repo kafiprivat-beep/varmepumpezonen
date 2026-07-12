@@ -1,11 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { categories } from "../data/advertisers";
+import { getPillar, getSupportArticles, articleUrl } from "../data/articles";
+
+const pillar = getPillar();
+const supports = getSupportArticles().slice(0, 6);
 ---
 
 <BaseLayout
   title="Siden blev ikke fundet (404)"
-  description="Vi kunne ikke finde den side, du ledte efter. Gå tilbage til forsiden eller find friluftsudstyr, guides og test i en af vores kategorier."
+  description="Vi kunne ikke finde den side, du ledte efter. Gå tilbage til forsiden eller find en af vores guides om varmepumper, priser og tilskud."
 >
   <meta slot="head" name="robots" content="noindex, follow" />
   <section class="section">
@@ -17,18 +20,16 @@ import { categories } from "../data/advertisers";
       </p>
       <p class="notfound__cta">
         <a href="/" class="btn btn-accent btn-lg">Gå til forsiden</a>
-        <a href="/artikler/" class="btn btn-outline btn-lg">Se alle guides</a>
+        <a href={articleUrl(pillar)} class="btn btn-outline btn-lg">
+          Læs varmepumpe-guiden
+        </a>
       </p>
 
-      <h2>Udforsk kategorierne</h2>
+      <h2>Populære guides</h2>
       <ul class="notfound__cats">
-        {
-          categories.map((c) => (
-            <li>
-              <a href={`/${c.slug}/`}>{c.name}</a>
-            </li>
-          ))
-        }
+        {supports.map((s) => (
+          <li><a href={articleUrl(s)}>{s.title}</a></li>
+        ))}
       </ul>
     </div>
   </section>
@@ -36,7 +37,7 @@ import { categories } from "../data/advertisers";
 
 <style>
   .notfound {
-    max-width: 720px;
+    max-width: 760px;
     padding-top: 1rem;
     padding-bottom: 2rem;
   }
@@ -60,11 +61,11 @@ import { categories } from "../data/advertisers";
     padding: 0;
     margin: 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem 1.25rem;
+    flex-direction: column;
+    gap: 0.6rem;
   }
   .notfound__cats a {
     font-weight: 600;
-    color: var(--color-primary);
+    color: var(--color-accent);
   }
 </style>

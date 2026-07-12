@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Varmepumpezonen">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#138a5e"/>
+      <stop offset="1" stop-color="#0e6b49"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <g fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round" opacity="0.9">
+    <path d="M540 470c-40-36-40-64 0-100s40-64 0-100"/>
+    <path d="M620 470c-40-36-40-64 0-100s40-64 0-100"/>
+  </g>
+  <text x="600" y="640" font-family="Manrope, Segoe UI, Arial, sans-serif"
+        font-size="56" font-weight="800" fill="#ffffff" text-anchor="middle"
+        letter-spacing="0.5">Varmepumpezonen.dk</text>
+</svg>

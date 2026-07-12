@@ -1,60 +1,62 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getArticlesSorted } from "../../data/articles";
-import { seoArticles } from "../../data/seoArticles";
+import Photo from "../../components/Photo.astro";
+import LeadCta from "../../components/LeadCta.astro";
+import { lucide } from "../../lib/icons";
+import { getPillar, getSupportArticles, articleUrl } from "../../data/articles";
 
-const articles = getArticlesSorted();
-const guides = [...seoArticles].sort((a, b) => a.title.localeCompare(b.title, "da"));
+const pillar = getPillar();
+const supports = [...getSupportArticles()].sort((a, b) =>
+  a.title.localeCompare(b.title, "da"),
+);
 ---
 
 <BaseLayout
-  title="Friluftsliv guides & artikler – tips, test og råd"
-  description="Friluftsliv guides og artikler: tips til vandring, camping og udstyr samt test og anmeldelser. Bliv klogere før din næste tur — 100 guides samlet ét sted."
+  title="Varmepumpe-artikler: guides om pris, tilskud og typer"
+  description="Alle vores guides om varmepumper: priser inkl. montering, tilskud 2026, luft-til-vand vs. luft-til-luft, dimensionering, støj, drift og bedste mærker."
 >
   <section class="section">
     <div class="container">
-      <p class="breadcrumb">
-        <a href="/">Forside</a> ›
-        <span>Artikler</span>
-      </p>
-
-      <h1 class="section-title">Friluftsliv guides & artikler</h1>
+      <p class="breadcrumb"><a href="/">Forside</a> › <span>Artikler</span></p>
+      <h1 class="section-title">Guides om varmepumper</h1>
       <p class="section-subtitle">
-        Bliv klogere på udstyr og teknik til friluftslivet, før du tager
-        afsted.
+        Bliv klogere på typer, priser, tilskud og drift — før du henter tilbud.
       </p>
 
-      <div class="grid grid-cards">
+      <a href={articleUrl(pillar)} class="pillar-banner">
+        <div class="pillar-banner__media">
+          <Photo file={pillar.hero.file} alt={pillar.hero.alt} width={900} height={600} />
+        </div>
+        <div class="pillar-banner__body">
+          <span class="chip">Start her · Stor guide</span>
+          <h2>{pillar.title}</h2>
+          <p>{pillar.excerpt}</p>
+          <span class="cat-link">
+            Læs guiden
+            <Fragment set:html={lucide("arrow-right", 16)} />
+          </span>
+        </div>
+      </a>
+
+      <div class="grid grid-cards" style="margin-top:2.5rem;">
         {
-          articles.map((art) => (
-            <a href={`/artikler/${art.slug}/`} class="card article-card">
+          supports.map((art) => (
+            <a href={articleUrl(art)} class="card article-card">
+              <span class="chip">{art.category}</span>
               <h3>{art.title}</h3>
-              <p class="meta">
-                {art.date} · {art.author}
-              </p>
               <p>{art.excerpt}</p>
+              <span class="cat-link">
+                Læs mere
+                <Fragment set:html={lucide("arrow-right", 16)} />
+              </span>
             </a>
           ))
         }
       </div>
 
-      {
-        guides.length > 0 && (
-          <>
-            <h2 class="section-title" style="margin-top:3rem;">
-              Alle guides
-            </h2>
-            <div class="grid grid-cards">
-              {guides.map((art) => (
-                <a href={`/artikler/${art.slug}/`} class="card article-card">
-                  <h3>{art.title}</h3>
-                  <p>{art.description}</p>
-                </a>
-              ))}
-            </div>
-          </>
-        )
-      }
+      <div style="margin-top:2.5rem;">
+        <LeadCta slotKey="artikler-index" />
+      </div>
     </div>
   </section>
 </BaseLayout>
