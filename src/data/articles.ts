@@ -55,7 +55,7 @@ const pillar: Article = {
     "Alt om varmepumper i 2026: luft-luft, luft-vand og jordvarme, priser inkl. montering, årlige besparelser vs. gas og olie, tilskud (27.000 kr.) og størrelsesguide.",
   category: "Guide",
   hero: {
-    file: "Heat Pump.jpg",
+    file: "Air_Source_Heat_Pump_-_Vailliant_aroTherm_Plus_on_a_terraced_house.jpg",
     alt: "Udendørs varmepumpe monteret ved facaden på et dansk parcelhus",
   },
   updated: "2026-07-11",
@@ -97,7 +97,7 @@ const pillar: Article = {
 <p>En varmepumpe flytter varme fra omgivelserne (udeluft, jord eller grundvand) ind i huset frem for at skabe varme ved forbrænding. Den bruger el til at drive en kompressor, men leverer langt mere varme, end den bruger strøm. Forholdet mellem afgivet varme og forbrugt el kaldes <strong>COP</strong> (Coefficient of Performance). En årsgennemsnitlig værdi kaldes <strong>SCOP</strong>.</p>
 <p>En moderne varmepumpe har typisk en SCOP på 3–5. Det betyder, at for hver kilowatt-time strøm, den bruger, giver den 3–5 kWh varme retur. Til sammenligning giver et elradiator-panel præcis 1 kWh varme pr. kWh strøm. Det er den effektivitet, der gør varmepumpen så billig i drift.</p>
 <p>Teknisk set fungerer en varmepumpe som et omvendt køleskab. Et kølemiddel cirkulerer i et lukket kredsløb gennem fire dele: en <strong>fordamper</strong>, en <strong>kompressor</strong>, en <strong>kondensator</strong> og en <strong>ekspansionsventil</strong>. Kølemidlet optager varme fra omgivelserne i fordamperen — selv ved minusgrader er der energi i luften — fordamper, komprimeres til høj temperatur og afgiver så varmen til huset i kondensatoren. Nyere pumper bruger i stigende grad det naturlige kølemiddel R290 (propan), der har en meget lav klimapåvirkning og klarer høje fremløbstemperaturer godt. Effektiviteten falder, jo koldere det er ude, og jo varmere vand pumpen skal levere — derfor er både korrekt dimensionering og en lav fremløbstemperatur afgørende for økonomien.</p>
-${fig("Heat pump unit.webp", "Nærbillede af udedelen på en luft-til-vand varmepumpe", "Udedelen optager varme fra udeluften — selv ved frostgrader er der energi at hente.")}
+${fig("Heat_pump_on_a_wall.jpg", "Nærbillede af udedelen på en luft-til-vand varmepumpe", "Udedelen optager varme fra udeluften — selv ved frostgrader er der energi at hente.")}
 
 <h2 id="typer">De tre typer varmepumper</h2>
 <p>Der findes tre hovedtyper. Valget afhænger af, hvordan dit hus varmes op i dag, hvor meget plads du har, og hvor stor en investering du er klar til.</p>
@@ -232,7 +232,7 @@ const supports: Article[] = [
       "Luft-til-luft eller luft-til-vand varmepumpe? Se forskellen på pris, opvarmning, varmt vand og hvilken type der passer til dit hus.",
     category: "Typer",
     hero: {
-      file: "Heat pump unit.webp",
+      file: "Heat_pump_on_a_wall.jpg",
       alt: "Udedel på en luft-baseret varmepumpe monteret på husmur",
     },
     updated: "2026-07-11",
@@ -259,7 +259,7 @@ const supports: Article[] = [
 <li><strong>Luft-til-luft</strong> blæser varm luft direkte ind i rummet via en indedel på væggen. Ingen tilslutning til vandbårne radiatorer eller varmtvandsbeholder.</li>
 <li><strong>Luft-til-vand</strong> sender varmen ind i husets centralvarmesystem — radiatorer og gulvvarme — og laver også varmt brugsvand.</li>
 </ul>
-${fig("Rooftop Packaged Units.JPG", "Varmepumpe-udedele installeret udendørs", "Begge typer har en udedel, der optager varme fra luften — også ved frost.")}
+${fig("Outdoor_air_conditioner_unit_installed_in_residential_garden_space.jpg", "Varmepumpe-udedele installeret udendørs", "Begge typer har en udedel, der optager varme fra luften — også ved frost.")}
 
 <h2>Pris og installation</h2>
 <p>Luft-til-luft er langt billigst: typisk 12.000–25.000 kr. inkl. montering og installeres på en enkelt dag. Luft-til-vand koster 90.000–150.000 kr. inkl. montering, fordi den kobles på hele varmesystemet. Til gengæld er luft-til-vand berettiget til <a href="/artikler/varmepumpe-tilskud-fradrag-2026/">varmepumpepuljens tilskud på 27.000 kr.</a>, hvilket luft-til-luft ikke er.</p>
@@ -276,7 +276,7 @@ ${fig("Rooftop Packaged Units.JPG", "Varmepumpe-udedele installeret udendørs", 
       "Varmepumpe til sommerhus: Sådan vælger du mellem luft-til-luft og luft-til-vand, hvad det koster, og hvordan du undgår fugt og frostskader.",
     category: "Anvendelse",
     hero: {
-      file: "Tuppenny Barn heat pump unit.jpg",
+      file: "Carrier_Outdoor_Split_Air_Conditioner_Heat_Pump_System_(55005181522).jpg",
       alt: "Varmepumpe monteret ved et træhus i naturskønne omgivelser",
     },
     updated: "2026-07-11",
@@ -302,7 +302,7 @@ ${fig("Rooftop Packaged Units.JPG", "Varmepumpe-udedele installeret udendørs", 
 
 <h2>Frostvagt og fugtsikring</h2>
 <p>En stor fordel er "frostvagt": Du lader pumpen holde en lav grundtemperatur, mens huset står tomt. Det forhindrer frostsprængte rør og holder fugt og skimmel væk. Vælg en model, der kan styres via app, så du kan skrue op for varmen, allerede inden du kører hjemmefra.</p>
-${fig("Heat Pump.jpg", "Udedel på en varmepumpe ved et sommerhus", "En udedel kræver lidt fri plads og afstand til skel — tænk på naboer og støj.")}
+${fig("Air_Source_Heat_Pump_-_Vailliant_aroTherm_Plus_on_a_terraced_house.jpg", "Udedel på en varmepumpe ved et sommerhus", "En udedel kræver lidt fri plads og afstand til skel — tænk på naboer og støj.")}
 
 <h2>Husk støj og placering</h2>
 <p>I tætbebyggede sommerhusområder er <a href="/artikler/stoej-fra-varmepumpe/">støj fra varmepumpen</a> værd at tænke over. Placér udedelen væk fra skel og soveværelsesvinduer, og tjek de lokale afstandskrav. Vil du se hele billedet af typer og priser, så start med ${PILLAR_LINK}.</p>
@@ -315,7 +315,7 @@ ${fig("Heat Pump.jpg", "Udedel på en varmepumpe ved et sommerhus", "En udedel k
       "Hvad koster en varmepumpe inkl. montering i 2026? Se priser for luft-til-luft, luft-til-vand og jordvarme — og hvad der påvirker den endelige pris.",
     category: "Pris",
     hero: {
-      file: "Heat pump unit.webp",
+      file: "Heat_pump_on_a_wall.jpg",
       alt: "Installatør monterer en luft-til-vand varmepumpe ved et hus",
     },
     updated: "2026-07-11",
@@ -345,7 +345,7 @@ ${fig("Heat Pump.jpg", "Udedel på en varmepumpe ved et sommerhus", "En udedel k
 
 <h2>Hvad indgår i monteringsprisen?</h2>
 <p>På en luft-til-vand installation dækker monteringen typisk: opstilling af ude- og indedel, buffertank/varmtvandsbeholder, rørføring til det eksisterende varmesystem, el-arbejde, nedtagning af gammelt olie-/gasfyr, indregulering og idriftsættelse. Alle disse poster bør stå specificeret i tilbuddet.</p>
-${fig("Rooftop Packaged Units.JPG", "Teknisk installation af varmepumpe", "Rørføring, buffertank og el-arbejde er en stor del af monteringsprisen.")}
+${fig("Outdoor_air_conditioner_unit_installed_in_residential_garden_space.jpg", "Teknisk installation af varmepumpe", "Rørføring, buffertank og el-arbejde er en stor del af monteringsprisen.")}
 
 <h2>Hvad påvirker prisen?</h2>
 <ul>
@@ -366,8 +366,8 @@ ${fig("Rooftop Packaged Units.JPG", "Teknisk installation af varmepumpe", "Rørf
       "Varmepumpepuljen giver 27.000 kr. i tilskud i 2026, og håndværkerfradraget op til 9.000 kr. pr. voksen. Se betingelser, beløb og hvordan du søger.",
     category: "Tilskud",
     hero: {
-      file: "Euro banknotes.jpg",
-      alt: "Penge og opsparing — symbol på tilskud til varmepumpe",
+      file: "Ecodan_outdoor_unit_in_the_snow.jpg",
+      alt: "Udedel på en luft-til-vand varmepumpe ved et hus i vintervejr",
     },
     updated: "2026-07-11",
     readMinutes: 6,
@@ -406,7 +406,7 @@ ${fig("Rooftop Packaged Units.JPG", "Teknisk installation af varmepumpe", "Rørf
 
 <h2>Kan man kombinere dem?</h2>
 <p>Ja — men <strong>ikke på det samme arbejde</strong>. Du kan ikke få håndværkerfradrag for den del af installationen, som varmepumpepuljen allerede dækker. I praksis bruger mange puljetilskuddet på hovedinstallationen og håndværkerfradraget på eventuelt øvrigt arbejde. Din installatør kan hjælpe med at fordele posterne korrekt.</p>
-${fig("Solar panels on a roof.jpg", "Energirenovering af bolig", "Tilskud og fradrag gør energirenovering med varmepumpe markant billigere.")}
+${fig("Carrier_Outdoor_Split_Air_Conditioner_Heat_Pump_System_(55005181522).jpg", "Udedel på en varmepumpe monteret ved et hus", "Tilskud og fradrag gør skiftet til varmepumpe markant billigere.")}
 
 <h2>Sådan kommer du videre</h2>
 <p>Start med at få et konkret tilbud, så du kender prisen — og dermed hvor meget tilskud og fradrag betyder for netop din installation. Se det fulde overblik i ${PILLAR_LINK}, eller brug vores <a href="/artikler/faa-3-tilbud-tjekliste/">tjekliste til 3 tilbud</a>.</p>
@@ -419,7 +419,7 @@ ${fig("Solar panels on a roof.jpg", "Energirenovering af bolig", "Tilskud og fra
       "Hvilket mærke varmepumpe er bedst? Se hvad du skal se efter — effektivitet (SCOP), støj, garanti og service — og hvordan du sammenligner mærker.",
     category: "Mærker",
     hero: {
-      file: "Heat Pump.jpg",
+      file: "Air_Source_Heat_Pump_-_Vailliant_aroTherm_Plus_on_a_terraced_house.jpg",
       alt: "Varmepumpe fra et kendt mærke monteret ved en husfacade",
     },
     updated: "2026-07-11",
@@ -448,7 +448,7 @@ ${fig("Solar panels on a roof.jpg", "Energirenovering af bolig", "Tilskud og fra
 <li><strong>Garanti og reservedele:</strong> Tjek garantiperiode på kompressor og tilgængelighed af reservedele.</li>
 <li><strong>Lokal service:</strong> En forhandler med serviceteknikere i nærheden er guld værd, hvis noget svigter.</li>
 </ul>
-${fig("Heat pump unit.webp", "Typeskilt og udedel på en moderne varmepumpe", "Sammenlign SCOP og støjniveau på databladet — ikke kun prisen.")}
+${fig("Heat_pump_on_a_wall.jpg", "Typeskilt og udedel på en moderne varmepumpe", "Sammenlign SCOP og støjniveau på databladet — ikke kun prisen.")}
 
 <h2>Kølemiddel og fremtidssikring</h2>
 <p>Nyere varmepumper bruger i stigende grad naturlige kølemidler som R290 (propan), der har lav klimapåvirkning og gode ydelser ved høj fremløbstemperatur. Det er især relevant i <a href="/artikler/varmepumpe-i-gamle-huse/">ældre huse</a> med radiatorer, der kræver varmt fremløb.</p>
@@ -464,7 +464,7 @@ ${fig("Heat pump unit.webp", "Typeskilt og udedel på en moderne varmepumpe", "S
       "Hvor meget støjer en varmepumpe? Se de danske støjgrænser ved skel, hvad dB-tallene betyder, og hvordan placering og indstilling mindsker støjen.",
     category: "Drift",
     hero: {
-      file: "Tuppenny Barn heat pump unit.jpg",
+      file: "Carrier_Outdoor_Split_Air_Conditioner_Heat_Pump_System_(55005181522).jpg",
       alt: "Udedel på en varmepumpe placeret ved en havemur",
     },
     updated: "2026-07-11",
@@ -496,7 +496,7 @@ ${fig("Heat pump unit.webp", "Typeskilt og udedel på en moderne varmepumpe", "S
 <li><strong>Natdrift:</strong> Mange modeller har en "silent mode", der sænker ventilatorhastigheden om natten.</li>
 <li><strong>Afskærmning:</strong> En akustikskærm kan hjælpe — men må ikke blokere luftind- og udtag.</li>
 </ul>
-${fig("Rooftop Packaged Units.JPG", "Placering af varmepumpe-udedel", "Rigtig placering er den billigste og mest effektive støjdæmpning.")}
+${fig("Outdoor_air_conditioner_unit_installed_in_residential_garden_space.jpg", "Placering af varmepumpe-udedel", "Rigtig placering er den billigste og mest effektive støjdæmpning.")}
 
 <h2>Vælg en lydsvag model</h2>
 <p>Støjniveauet står i databladet som lydeffekt i dB(A). Tag det med i din vurdering af <a href="/artikler/bedste-varmepumpe-maerker/">mærke og model</a> — det er især vigtigt ved <a href="/artikler/varmepumpe-til-sommerhus/">sommerhuse</a> og på små grunde. Se hele billedet i ${PILLAR_LINK}.</p>
@@ -509,8 +509,8 @@ ${fig("Rooftop Packaged Units.JPG", "Placering af varmepumpe-udedel", "Rigtig pl
       "Kan man have varmepumpe i et gammelt hus? Ja — men fremløbstemperatur, radiatorstørrelse og isolering afgør effektiviteten. Se hvad du skal være opmærksom på.",
     category: "Anvendelse",
     hero: {
-      file: "Solar panels on a roof.jpg",
-      alt: "Ældre murstenshus, der energirenoveres",
+      file: "Carrier_Outdoor_Split_Air_Conditioner_Heat_Pump_System_(55005181522).jpg",
+      alt: "Varmepumpe monteret ved et ældre hus",
     },
     updated: "2026-07-11",
     readMinutes: 6,
@@ -535,7 +535,7 @@ ${fig("Rooftop Packaged Units.JPG", "Placering af varmepumpe-udedel", "Rigtig pl
 
 <h2>Isolering betaler sig først</h2>
 <p>Et velisoleret hus har et lavere varmebehov, så du kan nøjes med en mindre — og billigere — varmepumpe. Efterisolering af loft og fokus på tætning omkring vinduer og døre er blandt de mest rentable tiltag, du kan lave <em>før</em> installationen. Det forbedrer både <a href="/artikler/dimensionering-af-varmepumpe/">dimensioneringen</a> og driftsøkonomien.</p>
-${fig("Heat Pump.jpg", "Varmepumpe ved et ældre parcelhus", "Med korrekt dimensionering og lave fremløbstemperaturer kører varmepumper også fint i ældre huse.")}
+${fig("Air_Source_Heat_Pump_-_Vailliant_aroTherm_Plus_on_a_terraced_house.jpg", "Varmepumpe ved et ældre parcelhus", "Med korrekt dimensionering og lave fremløbstemperaturer kører varmepumper også fint i ældre huse.")}
 
 <h2>Vælg det rette kølemiddel og effekt</h2>
 <p>Til huse, der kræver højere fremløb, er modeller med kølemidlet R290 (propan) ofte et godt valg, fordi de leverer varmt vand mere effektivt. Sørg for, at pumpen dimensioneres til husets reelle varmebehov — hellere en tand for stor buffer end en pumpe, der ikke kan følge med på årets koldeste dage.</p>
@@ -551,7 +551,7 @@ ${fig("Heat Pump.jpg", "Varmepumpe ved et ældre parcelhus", "Med korrekt dimens
       "Sådan vedligeholder du din varmepumpe: rengøring af filtre og udedel, årligt servicetjek, kontrol af tryk og indstillinger — og hvornår du bør tilkalde en tekniker.",
     category: "Drift",
     hero: {
-      file: "Heat pump unit.webp",
+      file: "Heat_pump_on_a_wall.jpg",
       alt: "Serviceeftersyn af en varmepumpes udedel",
     },
     updated: "2026-07-11",
@@ -579,7 +579,7 @@ ${fig("Heat Pump.jpg", "Varmepumpe ved et ældre parcelhus", "Med korrekt dimens
 <li><strong>Tjek indstillingerne:</strong> Hold øje med, at fremløbstemperatur og driftsindstillinger ser normale ud — pludselige udsving kan være et tidligt varsel.</li>
 <li><strong>Lyt efter unormal lyd:</strong> Nye vibrationer eller støj kan betyde løse dele. Se også <a href="/artikler/stoej-fra-varmepumpe/">støj fra varmepumpe</a>.</li>
 </ul>
-${fig("Rooftop Packaged Units.JPG", "Rengøring og eftersyn af varmepumpe", "Regelmæssig rengøring af filtre og udedel holder effektiviteten oppe.")}
+${fig("Outdoor_air_conditioner_unit_installed_in_residential_garden_space.jpg", "Rengøring og eftersyn af varmepumpe", "Regelmæssig rengøring af filtre og udedel holder effektiviteten oppe.")}
 
 <h2>Det klarer teknikeren</h2>
 <p>Ved det årlige servicetjek kontrollerer teknikeren kølemiddeltryk, gennemgår kompressor og elektronik, efterser buffertank og cirkulationspumpe og finjusterer indreguleringen. På anlæg med et vist kølemiddelfyld er periodisk tæthedskontrol desuden lovpligtig.</p>
@@ -595,7 +595,7 @@ ${fig("Rooftop Packaged Units.JPG", "Rengøring og eftersyn af varmepumpe", "Reg
       "Hvor stor en varmepumpe skal du have? Sådan beregnes effektbehovet ud fra husets størrelse, isolering og varmetab — og hvorfor korrekt dimensionering er afgørende.",
     category: "Guide",
     hero: {
-      file: "Heat Pump.jpg",
+      file: "Air_Source_Heat_Pump_-_Vailliant_aroTherm_Plus_on_a_terraced_house.jpg",
       alt: "Varmepumpe dimensioneret til et parcelhus",
     },
     updated: "2026-07-11",
@@ -626,7 +626,7 @@ ${fig("Rooftop Packaged Units.JPG", "Rengøring og eftersyn af varmepumpe", "Reg
 
 <h2>Hverken for lille eller for stor</h2>
 <p>En <strong>for lille</strong> pumpe kan ikke dække varmebehovet på årets koldeste dage og må supplere med dyr eltilskudsvarme. En <strong>for stor</strong> pumpe "takter" — tænder og slukker for ofte — hvilket sænker effektiviteten og slider på kompressoren. Målet er en pumpe, der kører jævnt og længe ad gangen ved lav fremløbstemperatur.</p>
-${fig("Heat pump unit.webp", "Dimensionering af varmepumpens effekt", "Effekten (kW) skal matche husets varmetab — ikke bare kvadratmeterne.")}
+${fig("Heat_pump_on_a_wall.jpg", "Dimensionering af varmepumpens effekt", "Effekten (kW) skal matche husets varmetab — ikke bare kvadratmeterne.")}
 
 <h2>Fremløbstemperatur og buffer</h2>
 <p>Dimensioneringen hænger tæt sammen med fremløbstemperaturen. I <a href="/artikler/varmepumpe-i-gamle-huse/">ældre huse</a> med små radiatorer kræves højere fremløb, hvilket påvirker både effektbehov og valg af model. En korrekt buffertank hjælper pumpen med at køre stabilt.</p>
@@ -642,7 +642,7 @@ ${fig("Heat pump unit.webp", "Dimensionering af varmepumpens effekt", "Effekten 
       "Sådan får du 3 gode tilbud på varmepumpe og sammenligner dem rigtigt. Tjekliste med de spørgsmål og poster, hvert tilbud skal indeholde.",
     category: "Guide",
     hero: {
-      file: "Heat pump unit.webp",
+      file: "Heat_pump_on_a_wall.jpg",
       alt: "Boligejer sammenligner tilbud på varmepumpe",
     },
     updated: "2026-07-11",
@@ -677,7 +677,7 @@ ${fig("Heat pump unit.webp", "Dimensionering af varmepumpens effekt", "Effekten 
 <li><strong>Garanti og service</strong> — periode og hvad der er dækket.</li>
 <li><strong>Forventet SCOP</strong> og estimeret årlig driftsudgift.</li>
 </ul>
-${fig("Rooftop Packaged Units.JPG", "Sammenligning af varmepumpetilbud", "Bed om samme oplysninger fra alle tre installatører, så tilbuddene kan sammenlignes direkte.")}
+${fig("Outdoor_air_conditioner_unit_installed_in_residential_garden_space.jpg", "Sammenligning af varmepumpetilbud", "Bed om samme oplysninger fra alle tre installatører, så tilbuddene kan sammenlignes direkte.")}
 
 <h2>Spørgsmål, du bør stille</h2>
 <ul>

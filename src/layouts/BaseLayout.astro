@@ -145,14 +145,14 @@ const year = new Date().getFullYear();
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#10502f" />
+    <meta name="theme-color" content="#138a5e" />
 
-    <!-- Fonts: Fraunces (display) + Inter (brødtekst) -->
+    <!-- Fonts: Manrope (display) + Atkinson Hyperlegible (brødtekst) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap"
     />
 
     <!-- Open Graph -->
@@ -212,7 +212,18 @@ const year = new Date().getFullYear();
   <body>
     <header class="site-header">
       <div class="container">
-        <a href="/" class="logo">varmepumpe<span>zonen</span></a>
+        <a href="/" class="logo" aria-label="Varmepumpezonen — forside">
+          <span class="logo__mark" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="28" height="28" rx="8" fill="#138a5e"></rect>
+              <g stroke="#ffffff" stroke-width="2" stroke-linecap="round">
+                <path d="M10 20.5c-2.4-2.2-2.4-3.8 0-6s2.4-3.8 0-6"></path>
+                <path d="M18 20.5c-2.4-2.2-2.4-3.8 0-6s2.4-3.8 0-6"></path>
+              </g>
+            </svg>
+          </span>
+          <span class="logo__word">Varmepumpezonen</span>
+        </a>
         <nav class="main-nav" aria-label="Hovedmenu">
           {NAV.map((n) => <a href={n.href}>{n.label}</a>)}
         </nav>

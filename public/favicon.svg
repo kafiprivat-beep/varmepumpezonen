@@ -1,11 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
-  <rect width="128" height="128" rx="28" fill="#14663c"/>
-  <!-- Hus -->
-  <path d="M40 62 L64 42 L88 62 V92 a4 4 0 0 1-4 4 H44 a4 4 0 0 1-4-4 Z"
-        fill="none" stroke="#eaf3ec" stroke-width="6" stroke-linejoin="round"/>
-  <!-- Varmebølger -->
-  <g fill="none" stroke="#f4a15e" stroke-width="6" stroke-linecap="round">
-    <path d="M56 74 q6 -6 0 -12 q-6 -6 0 -12"/>
-    <path d="M72 74 q6 -6 0 -12 q-6 -6 0 -12"/>
+  <rect width="128" height="128" rx="30" fill="#138a5e"/>
+  <g fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round">
+    <path d="M50 96c-11-10-11-18 0-28s11-18 0-28"/>
+    <path d="M84 96c-11-10-11-18 0-28s11-18 0-28"/>
   </g>
 </svg>

@@ -1,19 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="Varmepumpezonen">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#14663c"/>
-      <stop offset="1" stop-color="#0d4b2b"/>
+      <stop offset="0" stop-color="#138a5e"/>
+      <stop offset="1" stop-color="#0e6b49"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="800" fill="url(#g)"/>
-  <g fill="none" stroke="#f4a15e" stroke-width="12" opacity="0.5" stroke-linecap="round">
-    <path d="M300 470 q40 -40 0 -80 q-40 -40 0 -80"/>
-    <path d="M380 470 q40 -40 0 -80 q-40 -40 0 -80"/>
+  <g fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round" opacity="0.9">
+    <path d="M540 470c-40-36-40-64 0-100s40-64 0-100"/>
+    <path d="M620 470c-40-36-40-64 0-100s40-64 0-100"/>
   </g>
-  <!-- Hus -->
-  <path d="M520 470 L620 390 L720 470 V560 a10 10 0 0 1-10 10 H530 a10 10 0 0 1-10 -10 Z"
-        fill="none" stroke="#eaf3ec" stroke-width="14" stroke-linejoin="round"/>
-  <text x="600" y="660" font-family="Inter, Segoe UI, Arial, sans-serif"
-        font-size="52" font-weight="700" fill="#eaf3ec" text-anchor="middle"
-        letter-spacing="1">Varmepumpezonen.dk</text>
+  <text x="600" y="640" font-family="Manrope, Segoe UI, Arial, sans-serif"
+        font-size="56" font-weight="800" fill="#ffffff" text-anchor="middle"
+        letter-spacing="0.5">Varmepumpezonen.dk</text>
 </svg>
