@@ -939,3 +939,9 @@ img {
     left: 0.5rem;
   }
 }
+
+.partner-box { margin: 2rem 0; padding: 1.25rem 1.5rem; background: var(--bg-soft, #f4f1ea); border-radius: 14px; }
+.partner-box__title { font-weight: 600; margin: 0 0 .5rem; }
+.partner-box ul { margin: 0 0 .75rem; padding-left: 1.1rem; }
+.partner-box li { margin: .35rem 0; }
+.partner-box__note { font-size: .8rem; opacity: .7; margin: 0; }

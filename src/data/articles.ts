@@ -41,6 +41,20 @@ function fig(file: string, alt: string, caption: string): string {
   return `<figure><img src="${src}" alt="${alt}" width="1200" height="800" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/images/fallback.svg';this.classList.add('photo--fallback')"/><figcaption>${caption}</figcaption></figure>`;
 }
 
+
+/** Partner-ads-link (partnerid 22327, uid = sitet) med korrekt rel. */
+function pa(bannerid: number, url: string, text: string): string {
+  return `<a href="https://www.partner-ads.com/dk/klikbanner.php?partnerid=22327&amp;bannerid=${bannerid}&amp;htmlurl=${encodeURIComponent(url)}&amp;uid=varmepumpezonen" target="_blank" rel="sponsored nofollow noopener">${text}</a>`;
+}
+const H = (slug: string) => `https://heatnow.dk/produkt/${slug}/`;
+
+/** Produktboks med konkrete varmepumper hos Heatnow. */
+function heatnowBox(items: [string, string, string][]): string {
+  return `<aside class="partner-box"><p class="partner-box__title">Konkrete modeller du kan købe</p><ul>${items
+    .map(([slug, name, note]) => `<li>${pa(114836, H(slug), name)} — ${note}</li>`)
+    .join("")}</ul><p class="partner-box__note">Links til Heatnow.dk er annoncelinks; vi får en lille provision, hvis du køber. Prisen er den samme for dig.</p></aside>`;
+}
+
 const PILLAR_LINK =
   '<a href="/varmepumpe-guide/">den store varmepumpe-guide</a>';
 
@@ -261,6 +275,8 @@ const supports: Article[] = [
 </ul>
 ${fig("Outdoor_air_conditioner_unit_installed_in_residential_garden_space.jpg", "Varmepumpe-udedele installeret udendørs", "Begge typer har en udedel, der optager varme fra luften — også ved frost.")}
 
+${heatnowBox([['cooper-hunter-arctic-9k-pakkepris','Cooper & Hunter Arctic 9k pakkepris','pakkepris til mindre rum og sommerhuse'],['cooper-hunter-arctic-12k-pakkepris','Cooper & Hunter Arctic 12k pakkepris','indbygget wifi-styring, til større stuer'],['daikin-perfera-25','Daikin Perfera 25','støjsvag model fra et af de mest solgte mærker'],['panasonic-nz25yke-1','Panasonic NZ25-YKE','effektiv model med lavt energiforbrug']])}
+
 <h2>Pris og installation</h2>
 <p>Luft-til-luft er langt billigst: typisk 12.000–25.000 kr. inkl. montering og installeres på en enkelt dag. Luft-til-vand koster 90.000–150.000 kr. inkl. montering, fordi den kobles på hele varmesystemet. Til gengæld er luft-til-vand berettiget til <a href="/artikler/varmepumpe-tilskud-fradrag-2026/">varmepumpepuljens tilskud på 27.000 kr.</a>, hvilket luft-til-luft ikke er.</p>
 
@@ -342,6 +358,8 @@ ${fig("Air_Source_Heat_Pump_-_Vailliant_aroTherm_Plus_on_a_terraced_house.jpg", 
 <li><strong>Luft-til-vand:</strong> 90.000–150.000 kr. for et parcelhus på 130–160 m².</li>
 <li><strong>Jordvarme:</strong> 120.000–180.000 kr. — nedgravning af jordslanger er den store meromkostning.</li>
 </ul>
+
+${heatnowBox([['cooper-hunter-arctic-12k-pakkepris','Cooper & Hunter Arctic 12k pakkepris','lav startpris, udstyr samlet i én pakke'],['mitsubishi-ln25-varmepumpe','Mitsubishi LN25','premiummodel med høj SCOP'],['daikin-nepura-perfera-30','Daikin Nepura Perfera 30','til større rum og åbne boligplaner']])}
 
 <h2>Hvad indgår i monteringsprisen?</h2>
 <p>På en luft-til-vand installation dækker monteringen typisk: opstilling af ude- og indedel, buffertank/varmtvandsbeholder, rørføring til det eksisterende varmesystem, el-arbejde, nedtagning af gammelt olie-/gasfyr, indregulering og idriftsættelse. Alle disse poster bør stå specificeret i tilbuddet.</p>
@@ -440,6 +458,8 @@ ${fig("Carrier_Outdoor_Split_Air_Conditioner_Heat_Pump_System_(55005181522).jpg"
     body: `
 <p class="lead">Mange spørger, hvilket mærke der er "bedst". Sandheden er, at de førende producenter alle laver effektive, driftssikre varmepumper — og at den rigtige model afhænger mere af dit hus end af logoet. Her er de kriterier, der faktisk betyder noget.</p>
 
+${heatnowBox([['daikin-perfera-25','Daikin Perfera 25','kendt for lavt støjniveau'],['panasonic-hz25zke-varmepumpe','Panasonic HZ25-ZKE','Etherea-serie med høj effektivitet'],['mitsubishi-ln25-varmepumpe','Mitsubishi LN25','driftssikker og meget udbredt'],['cooper-hunter-supreme-12','Cooper & Hunter Supreme 12','prisvenlig model med godt udstyr']])}
+
 <h2>De vigtigste kvalitetskriterier</h2>
 <ul>
 <li><strong>Effektivitet (SCOP):</strong> Jo højere SCOP, desto lavere driftsudgift. Sammenlign SCOP ved samme fremløbstemperatur — ellers sammenligner du æbler og pærer.</li>
@@ -529,6 +549,8 @@ ${fig("Outdoor_air_conditioner_unit_installed_in_residential_garden_space.jpg", 
     ],
     body: `
 <p class="lead">Der er en sejlivet myte om, at varmepumper ikke egner sig til gamle huse. Det passer ikke — men ældre huse stiller krav til fremløbstemperatur og radiatorer, som du skal have styr på for at få en effektiv drift.</p>
+
+<p>Før varmepumpen kommer i spil, er det ofte værd at se på klimaskærmen: du kan få <a href="https://www.partner-ads.com/dk/klikbanner.php?partnerid=22327&amp;bannerid=105348&amp;htmlurl=https%3A%2F%2Fwww.danskisolering.dk%2Fefterisolering&amp;uid=varmepumpezonen" target="_blank" rel="sponsored nofollow noopener">pris på efterisolering hos Dansk Isolering</a> (annoncelink), så varmebehovet falder, og en mindre varmepumpe rækker.</p>
 
 <h2>Fremløbstemperaturen er nøglen</h2>
 <p>En varmepumpe er mest effektiv, når den kan varme vandet til en <em>lav</em> fremløbstemperatur — gerne 35–45 °C. Gamle huse med små radiatorer er ofte designet til 60–70 °C. Jo højere fremløb, desto lavere SCOP og desto dyrere drift. Løsningen er sjældent at skifte alt: ofte rækker det at udskifte de få underdimensionerede radiatorer med større paneler eller supplere med gulvvarme i udvalgte rum.</p>
