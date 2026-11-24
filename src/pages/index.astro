@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Photo from "../components/Photo.astro";
 import LeadCta from "../components/LeadCta.astro";
+import IsoleringBox from "../components/IsoleringBox.astro";
 import { lucide } from "../lib/icons";
 import { getPillar, getSupportArticles, articleUrl } from "../data/articles";
 
@@ -197,6 +198,7 @@ const faqSchema = {
           tallene typisk ud for et dansk parcelhus i 2026.
         </p>
       </div>
+      <IsoleringBox />
       <div class="stats">
         {
           stats.map((s) => (
